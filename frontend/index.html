@@ -8,6 +8,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search..."
+        onclick="filterOptions()"
+        oninput="filterOptions()"
+        onblur="closeDropdown()"
+      />
+      <div id="dropdown" class="dropdown"></div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
