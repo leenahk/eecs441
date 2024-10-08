@@ -16,6 +16,10 @@ const companies = [
 const dropdown = document.getElementById("dropdown");
 const searchBar = document.getElementById("searchInput");
 
+// Logic to close dropdown when user clicks away
+document.addEventListener("click", closeDropdown);
+searchBar.addEventListener("click", (e) => e.stopPropagation());
+
 /*
  * Filter the options in the dropdown based on what user has
  * typed inside the search bar.
@@ -39,13 +43,9 @@ function filterOptions() {
         dropdown.appendChild(optionDiv);
     });
     
-    dropdown.style.display = "block";
+    dropdown.style.display = filtered.length > 0 ? "block" : "none";
 }
 
 function closeDropdown() {
     dropdown.style.display = "none";
 }
-
-// Logic to close dropdown when user clicks away
-document.addEventListener("click", closeDropdown);
-searchBar.addEventListener("click", (e) => e.stopPropagation());
