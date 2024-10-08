@@ -13,30 +13,39 @@ const companies = [
     'Miro', 'Notion', 'Figma', 'Zapier', 'IFTTT', 'Wix'
 ];
 
-
 const dropdown = document.getElementById("dropdown");
+const searchBar = document.getElementById("searchInput");
 
-
+/*
+ * Filter the options in the dropdown based on what user has
+ * typed inside the search bar.
+ */
 function filterOptions() {
     const input = document.getElementById("searchInput").value.toLowerCase();
     dropdown.innerHTML = "";
-
+    
     const filtered = companies.filter((company) => {
         return company.toLowerCase().includes(input);
     })
-
+    
     filtered.forEach((company) => {
         const optionDiv = document.createElement("div");
         optionDiv.textContent = company;
-        optionDiv.addEventListener('onclick', () => {
-            console.log("hello");
-            // document.getElementById('searchInput').value = "helo";
-            // closeDropdown();
+        optionDiv.addEventListener('click', (e) => {
+            document.getElementById('searchInput').value = company;
+            e.stopPropagation();
+            closeDropdown();
         });
         dropdown.appendChild(optionDiv);
     });
+    
+    dropdown.style.display = "block";
 }
 
 function closeDropdown() {
-    dropdown.innerHTML = "";
+    dropdown.style.display = "none";
 }
+
+// Logic to close dropdown when user clicks away
+document.addEventListener("click", closeDropdown);
+searchBar.addEventListener("click", (e) => e.stopPropagation());
