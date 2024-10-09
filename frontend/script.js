@@ -13,18 +13,60 @@ const companies = [
     'Miro', 'Notion', 'Figma', 'Zapier', 'IFTTT', 'Wix'
 ];
 
+const myCompanies = new Set();
+
 const dropdown = document.getElementById("dropdown");
+
+// Logic to tell that a selection has been made
 const searchBar = document.getElementById("searchInput");
+let companySelected = false;
 
 // Logic to close dropdown when user clicks away
 document.addEventListener("click", closeDropdown);
 searchBar.addEventListener("click", (e) => e.stopPropagation());
 
-/*
- * Filter the options in the dropdown based on what user has
- * typed inside the search bar.
- */
+function renderCompanyList() {
+    const companyList = document.getElementById("companyList");
+    companyList.innerHTML = '';
+    myCompanies.forEach((company) => {
+        // Create a container for each company
+        const companyItem = document.createElement('div');
+        companyItem.classList.add('company-item');
+
+        // Add the company name
+        const companyName = document.createElement('span');
+        companyName.textContent = company;
+        companyItem.appendChild(companyName);
+
+        // Add the trash icon
+        const trashIcon = document.createElement('span');
+        trashIcon.innerHTML = '🗑️';  // Using a trash emoji for the icon
+        trashIcon.classList.add('trash-icon');
+        trashIcon.addEventListener('click', () => removeCompany(company));
+        companyItem.appendChild(trashIcon);
+
+        // Append the company block to the list
+        companyList.appendChild(companyItem);
+    });
+}
+
+function removeCompany(company) {
+    myCompanies.delete(company);
+    renderCompanyList();
+}
+
+function updateMyCompanies() {
+    const input = document.getElementById("searchInput").value;
+    if (companySelected) {
+        myCompanies.add(input);
+        renderCompanyList();
+        document.getElementById("searchInput").value = "";
+        companySelected = false;
+    }
+}
+
 function filterOptions() {
+    companySelected = false;
     const input = document.getElementById("searchInput").value.toLowerCase();
     dropdown.innerHTML = "";
     
@@ -37,6 +79,7 @@ function filterOptions() {
         optionDiv.textContent = company;
         optionDiv.addEventListener('click', (e) => {
             document.getElementById('searchInput').value = company;
+            companySelected = true;
             e.stopPropagation();
             closeDropdown();
         });
