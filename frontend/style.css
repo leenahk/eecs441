@@ -2,20 +2,28 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Container for the list of companies */
-.company-list {
+/* Container for the company and leetcode lists */
+.info-container {
+    display: flex;
+    width: 700px;
+    gap: 50px;
+    margin: 20px auto 20px auto;
+}
+
+.item-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 300px;
     max-width: 400px;
-    margin: 20px auto 20px 150px;
+    margin: 20px auto 20px auto;
 }
 
-/* Each company block */
-.company-item {
+.list-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 5px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -31,6 +39,15 @@ body {
 
 .trash-icon:hover {
     color: darkred;
+}
+
+/* Checkbox for LeetCode questions */
+.leetcode-checkbox {
+    transform: scale(1.2);
+}
+
+h2 {
+    text-align: center;
 }
 
 .search-container {

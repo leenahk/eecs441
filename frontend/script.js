@@ -13,6 +13,11 @@ const companies = [
     'Miro', 'Notion', 'Figma', 'Zapier', 'IFTTT', 'Wix'
 ];
 
+let leetcodeQuestions = [
+    'Two Sum', 'Longest Substring Without Repeating Characters', 'Median of Two Sorted Arrays', 
+    'Merge Two Sorted Lists', 'Best Time to Buy and Sell Stock'
+];
+
 const myCompanies = new Set();
 
 const dropdown = document.getElementById("dropdown");
@@ -32,6 +37,7 @@ function renderCompanyList() {
         // Create a container for each company
         const companyItem = document.createElement('div');
         companyItem.classList.add('company-item');
+        companyItem.classList.add('list-item');
 
         // Add the company name
         const companyName = document.createElement('span');
@@ -47,6 +53,32 @@ function renderCompanyList() {
 
         // Append the company block to the list
         companyList.appendChild(companyItem);
+    });
+}
+
+function renderLeetcodeList() {
+    let leetcodeList = document.getElementById("leetcodeList");
+    leetcodeList.innerHTML = ''; // Clear the previous list
+
+    leetcodeQuestions.forEach((question) => {
+        // Create a container for each LeetCode question
+        const leetcodeItem = document.createElement('div');
+        leetcodeItem.classList.add('leetcode-item');
+        leetcodeItem.classList.add('list-item');
+
+        // Add the question name
+        const questionName = document.createElement('span');
+        questionName.textContent = question;
+        leetcodeItem.appendChild(questionName);
+
+        // Add the checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('leetcode-checkbox');
+        leetcodeItem.appendChild(checkbox);
+
+        // Append the question block to the list
+        leetcodeList.appendChild(leetcodeItem);
     });
 }
 
@@ -92,3 +124,5 @@ function filterOptions() {
 function closeDropdown() {
     dropdown.style.display = "none";
 }
+
+renderLeetcodeList();
