@@ -1,106 +1,118 @@
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 /* Container for the company and leetcode lists */
 .info-container {
-    display: flex;
-    width: 700px;
-    gap: 50px;
-    margin: 20px auto 20px auto;
+  display: flex;
+  width: 700px;
+  gap: 50px;
+  margin: 20px auto 20px auto;
 }
 
 .item-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 300px;
-    max-width: 400px;
-    margin: 20px auto 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  max-width: 400px;
+  margin: 20px auto 20px auto;
 }
 
 .list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
 }
 
 /* Style for the trash icon */
 .trash-icon {
-    cursor: pointer;
-    color: red;
-    font-size: 18px;
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
 }
 
 .trash-icon:hover {
-    color: darkred;
+  color: darkred;
 }
 
 /* Checkbox for LeetCode questions */
 .leetcode-checkbox {
-    transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+h1 {
+  text-align: center;
 }
 
 h2 {
-    text-align: center;
+  text-align: center;
 }
 
 .search-container {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    width: 300px;
-    border: 1px solid gray;
-    border-radius: 7px;
-    background-color: whitesmoke;
-    padding: 50px 100px 40px 100px;
-    box-shadow: 0px 3px 3px gray;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 300px;
+  border: 1px solid gray;
+  border-radius: 7px;
+  background-color: whitesmoke;
+  padding: 50px 100px 40px 100px;
+  box-shadow: 0px 3px 3px gray;
 }
 
 .search-container button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    width: 200px;
-    border-style: none;
-    border-radius: 7px;
-    background-color: lightblue;
-    padding: 5px 10px 5px 10px;
-    box-shadow: 0px 3px 3px gray;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 200px;
+  border-style: none;
+  border-radius: 7px;
+  background-color: lightblue;
+  padding: 5px 10px 5px 10px;
+  box-shadow: 0px 3px 3px gray;
+}
+
+.search-container button:hover {
+  background-color: rgb(173, 193, 230);
+}
+
+.search-container button:active {
+  background-color: rgb(173, 180, 230);
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 .dropdown {
-    position: absolute;
-    top: 52%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    z-index: 1000;
-    max-height: 150px;
-    overflow-y: auto;
-    display: none;
+  position: absolute;
+  top: 52%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  max-height: 150px;
+  overflow-y: auto;
+  display: none;
 }
 
 .dropdown div {
-    padding: 10px;
-    cursor: pointer;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .dropdown div:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
