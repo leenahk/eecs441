@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <h1>JobQuest</h1>
+    <h1 id="title">JobQuest</h1>
     <div class="search-container">
       <input
         type="text"
@@ -19,7 +19,9 @@
         oninput="filterOptions()"
       />
       <div id="dropdown" class="dropdown"></div>
-      <button id="addCompany" onclick="updateMyCompanies()">Add Company</button>
+      <button type="button" id="addCompany" onclick="updateMyCompanies()">
+        Add Company
+      </button>
     </div>
     <div class="info-container">
       <div class="item-list">

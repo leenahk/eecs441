@@ -14,7 +14,7 @@ const companies = [
 ];
 
 let leetcodeQuestions = [
-    'Two Sum', 'Longest Substring Without Repeating Characters', 'Median of Two Sorted Arrays', 
+    'Two Sum', 'Longest Substring Without Repeating Characters', 'Median of Two Sorted Arrays',
     'Merge Two Sorted Lists', 'Best Time to Buy and Sell Stock'
 ];
 
@@ -101,11 +101,11 @@ function filterOptions() {
     companySelected = false;
     const input = document.getElementById("searchInput").value.toLowerCase();
     dropdown.innerHTML = "";
-    
+
     const filtered = companies.filter((company) => {
         return company.toLowerCase().includes(input);
     })
-    
+
     filtered.forEach((company) => {
         const optionDiv = document.createElement("div");
         optionDiv.textContent = company;
@@ -117,7 +117,7 @@ function filterOptions() {
         });
         dropdown.appendChild(optionDiv);
     });
-    
+
     dropdown.style.display = filtered.length > 0 ? "block" : "none";
 }
 
@@ -125,4 +125,14 @@ function closeDropdown() {
     dropdown.style.display = "none";
 }
 
+function getUsername() {
+    const titleElement = document.getElementById("title");
+    const user = sessionStorage.getItem("username");
+    if (user === null) {
+        window.location.href = "index.html";
+    }
+    titleElement.textContent = `${user}'s JobQuest`;
+}
+
+getUsername();
 renderLeetcodeList();
