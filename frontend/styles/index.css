@@ -1,7 +1,7 @@
 .login-box {
   position: absolute;
   width: 300px;
-  border: 2px solid gray;
+  border: 1px solid gray;
   border-radius: 7px;
   padding: 50px 50px 60px 50px;
   background-color: whitesmoke;
