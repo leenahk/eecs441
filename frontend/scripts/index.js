@@ -1,11 +1,12 @@
 function submitUsername() {
-    const username = document.getElementById("usernameInput").value;
+    const name = document.getElementById("usernameInput").value;
+    console.log(name);
     fetch('http://localhost:5000/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "username": username })
+        body: JSON.stringify({ username: name })
     })
         .then(response => {
             if (!response.ok) {
@@ -16,6 +17,6 @@ function submitUsername() {
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
 
-    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("username", name);
     window.location.href = "main.html";
 }
