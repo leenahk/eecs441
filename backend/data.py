@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import json
 import os
 import pandas as pd
 
 app = Flask(__name__)
+CORS(app)
 
 user_data_file = 'users.json'
 company_questions_file = 'company_questions.csv'

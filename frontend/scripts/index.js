@@ -5,7 +5,7 @@ function submitUsername() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "username": "user1" })
+        body: JSON.stringify({ "username": username })
     })
         .then(response => {
             if (!response.ok) {
