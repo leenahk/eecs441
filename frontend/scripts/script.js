@@ -57,6 +57,28 @@ function renderCompanyList() {
 }
 
 function renderLeetcodeList() {
+    const user = sessionStorage.getItem("username");
+    let leetcodeQuestions = [];
+    fetch('http://localhost:5000/common-questions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: user }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            leetcodeQuestions = data;
+            console.log(leetcodeQuestions);
+        }
+        )
+        .catch(error => console.error('Error:', error));
+
     let leetcodeList = document.getElementById("leetcodeList");
     leetcodeList.innerHTML = ''; // Clear the previous list
 
@@ -90,7 +112,25 @@ function removeCompany(company) {
 function updateMyCompanies() {
     const input = document.getElementById("searchInput").value;
     if (companySelected) {
+        const user = sessionStorage.getItem("username");
         myCompanies.add(input);
+        console.log(Array.from(myCompanies));
+        fetch('http://localhost:5000/update-companies', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username: user, companies: Array.from(myCompanies) }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+
         renderCompanyList();
         document.getElementById("searchInput").value = "";
         companySelected = false;

@@ -3,7 +3,9 @@
         "companies": []
     },
     "ashvin": {
-        "companies": []
+        "companies": [
+            "microsoft"
+        ]
     },
     "user1": {
         "companies": []
@@ -16,5 +18,12 @@
     },
     "hello2": {
         "companies": []
+    },
+    "user13": {
+        "companies": [
+            "qualcomm",
+            "microsoft",
+            "oracle"
+        ]
     }
 }
