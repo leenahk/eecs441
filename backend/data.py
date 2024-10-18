@@ -102,8 +102,7 @@ def update_companies():
 
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        current_companies = users[username].get('companies', [])
-        updated_companies = list(set(current_companies + new_companies))  # Avoid duplicates
+        updated_companies = list(set(new_companies))  # Avoid duplicates
         users[username]['companies'] = updated_companies
 
         file.seek(0)

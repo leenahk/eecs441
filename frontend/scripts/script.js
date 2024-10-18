@@ -75,37 +75,57 @@ function renderLeetcodeList() {
         .then(data => {
             leetcodeQuestions = data;
             console.log(leetcodeQuestions);
+
+            let leetcodeList = document.getElementById("leetcodeList");
+            leetcodeList.innerHTML = ''; // Clear the previous list
+
+            leetcodeQuestions.forEach((question) => {
+                console.log("a question", question);
+                // Create a container for each LeetCode question
+                const leetcodeItem = document.createElement('div');
+                leetcodeItem.classList.add('leetcode-item');
+                leetcodeItem.classList.add('list-item');
+
+                // Add the question name
+                const questionName = document.createElement('span');
+                questionName.textContent = question.Title;
+                leetcodeItem.appendChild(questionName);
+
+                // Add the checkbox
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.classList.add('leetcode-checkbox');
+                leetcodeItem.appendChild(checkbox);
+
+                // Append the question block to the list
+                leetcodeList.appendChild(leetcodeItem);
+            });
         }
         )
         .catch(error => console.error('Error:', error));
 
-    let leetcodeList = document.getElementById("leetcodeList");
-    leetcodeList.innerHTML = ''; // Clear the previous list
 
-    leetcodeQuestions.forEach((question) => {
-        // Create a container for each LeetCode question
-        const leetcodeItem = document.createElement('div');
-        leetcodeItem.classList.add('leetcode-item');
-        leetcodeItem.classList.add('list-item');
-
-        // Add the question name
-        const questionName = document.createElement('span');
-        questionName.textContent = question;
-        leetcodeItem.appendChild(questionName);
-
-        // Add the checkbox
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.classList.add('leetcode-checkbox');
-        leetcodeItem.appendChild(checkbox);
-
-        // Append the question block to the list
-        leetcodeList.appendChild(leetcodeItem);
-    });
 }
 
 function removeCompany(company) {
     myCompanies.delete(company);
+    const user = sessionStorage.getItem("username");
+    fetch('http://localhost:5000/update-companies', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: user, companies: Array.from(myCompanies) }),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    renderLeetcodeList();
     renderCompanyList();
 }
 
@@ -134,6 +154,7 @@ function updateMyCompanies() {
         renderCompanyList();
         document.getElementById("searchInput").value = "";
         companySelected = false;
+        renderLeetcodeList();
     }
 }
 

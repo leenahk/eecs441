@@ -1,29 +1,13 @@
 {
-    "user": {
-        "companies": []
-    },
-    "ashvin": {
+    "user1": {
         "companies": [
             "microsoft"
         ]
     },
-    "user1": {
-        "companies": []
-    },
-    "hello": {
-        "companies": []
-    },
-    "hello1": {
-        "companies": []
-    },
-    "hello2": {
-        "companies": []
-    },
-    "user13": {
+    "user2": {
         "companies": [
-            "qualcomm",
-            "microsoft",
-            "oracle"
+            "cisco",
+            "microsoft"
         ]
     }
 }
