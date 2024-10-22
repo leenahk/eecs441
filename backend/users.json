@@ -5,9 +5,9 @@
         ]
     },
     "user2": {
-        "companies": [
-            "cisco",
-            "microsoft"
-        ]
+        "companies": []
+    },
+    "ashvin": {
+        "companies": []
     }
 }
