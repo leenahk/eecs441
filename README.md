@@ -30,3 +30,8 @@ curl -X POST http://localhost:5000/common-questions -H "Content-Type: applicatio
 ```
 curl -X POST http://localhost:5000/update-companies -H "Content-Type: application/json" -d '{"username": "ashvin", "companies": ["microsoft", "oracle", ...]}'
 ```
+
+### Get Companies
+```
+curl -X POST http://localhost:5000/get-companies -H "Content-Type: application/json" -d '{"username": "ashvin"}'
+```

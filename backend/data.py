@@ -112,5 +112,12 @@ def update_companies():
     return jsonify({"message": f"Companies updated successfully for user '{username}'."}), 200
 
 
+# get companies
+@app.route('/get-companies', methods=['POST'])
+def get_companies():
+    data = request.json
+    username = data.get('username').strip().lower()
+    return jsonify({"companies": get_user_companies(username)}), 200
+
 if __name__ == "__main__":
     app.run(debug=True)

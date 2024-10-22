@@ -72,15 +72,14 @@ function renderLeetcodeList() {
             }
             return response.json();
         })
-        .then(data => {
+        .then((data) => {
             leetcodeQuestions = data;
-            console.log(leetcodeQuestions);
+            console.log("LeetCode Questions", leetcodeQuestions);
 
             let leetcodeList = document.getElementById("leetcodeList");
             leetcodeList.innerHTML = ''; // Clear the previous list
 
             leetcodeQuestions.forEach((question) => {
-                console.log("a question", question);
                 // Create a container for each LeetCode question
                 const leetcodeItem = document.createElement('div');
                 leetcodeItem.classList.add('leetcode-item');
@@ -103,8 +102,6 @@ function renderLeetcodeList() {
         }
         )
         .catch(error => console.error('Error:', error));
-
-
 }
 
 function removeCompany(company) {
@@ -123,10 +120,12 @@ function removeCompany(company) {
             }
             return response.json();
         })
-        .then(data => console.log(data))
+        .then((data) => {
+            console.log(data);
+            renderCompanyList();
+            renderLeetcodeList();
+        })
         .catch(error => console.error('Error:', error));
-    renderLeetcodeList();
-    renderCompanyList();
 }
 
 function updateMyCompanies() {
@@ -148,13 +147,14 @@ function updateMyCompanies() {
                 }
                 return response.json();
             })
-            .then(data => console.log(data))
+            .then((data) => {
+                console.log(data);
+                renderCompanyList();
+                renderLeetcodeList();
+                document.getElementById("searchInput").value = "";
+                companySelected = false;
+            })
             .catch(error => console.error('Error:', error));
-
-        renderCompanyList();
-        document.getElementById("searchInput").value = "";
-        companySelected = false;
-        renderLeetcodeList();
     }
 }
 
@@ -187,13 +187,40 @@ function closeDropdown() {
 }
 
 function getUsername() {
+    return sessionStorage.getItem("username");
+}
+
+function renderTitle() {
     const titleElement = document.getElementById("title");
-    const user = sessionStorage.getItem("username");
+    let user = getUsername();
     if (user === null) {
         window.location.href = "index.html";
     }
     titleElement.textContent = `${user}'s JobQuest`;
 }
 
-getUsername();
-renderLeetcodeList();
+
+// Initializing the page
+renderTitle();
+
+// Initialize the company list
+fetch('http://localhost:5000/get-companies', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username: getUsername() }),
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data) => { 
+        console.log(data); 
+        data.companies.forEach((d) => myCompanies.add(d))
+        renderLeetcodeList();
+        renderCompanyList();
+    })
+    .catch(error => console.error('Error:', error));
