@@ -22,6 +22,11 @@ def username_exists(username):
 def get_user_companies(username):
     with open(user_data_file, 'r') as file:
         users = json.load(file)
+    return [c.lower() for c in users.get(username, {}).get('companies', [])]
+
+def get_user_companies_for_display(username):
+    with open(user_data_file, 'r') as file:
+        users = json.load(file)
     return users.get(username, {}).get('companies', [])
 
 def register_user(username, company_list):
@@ -95,7 +100,7 @@ def get_common_questions():
 def update_companies():
     data = request.json
     username = data.get('username').strip().lower()
-    new_companies = [company.strip().lower() for company in data.get('companies', [])]
+    new_companies = data.get('companies', [])
 
     if not login_user(username):
         return jsonify({"message": "User not found. Please log in first."}), 404
@@ -117,7 +122,7 @@ def update_companies():
 def get_companies():
     data = request.json
     username = data.get('username').strip().lower()
-    return jsonify({"companies": get_user_companies(username)}), 200
+    return jsonify({"companies": get_user_companies_for_display(username)}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
