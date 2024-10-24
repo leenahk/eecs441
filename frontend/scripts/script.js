@@ -13,11 +13,6 @@ const companies = [
     'Miro', 'Notion', 'Figma', 'Zapier', 'IFTTT', 'Wix'
 ];
 
-let leetcodeQuestions = [
-    'Two Sum', 'Longest Substring Without Repeating Characters', 'Median of Two Sorted Arrays',
-    'Merge Two Sorted Lists', 'Best Time to Buy and Sell Stock'
-];
-
 const myCompanies = new Set();
 
 const dropdown = document.getElementById("dropdown");
@@ -147,7 +142,7 @@ function updateMyCompanies() {
                 }
                 return response.json();
             })
-            .then((data) => {
+            .then(data => {
                 console.log(data);
                 renderCompanyList();
                 renderLeetcodeList();
@@ -167,7 +162,7 @@ function filterOptions() {
         return company.toLowerCase().includes(input);
     })
 
-    filtered.forEach((company) => {
+    filtered.forEach(company => {
         const optionDiv = document.createElement("div");
         optionDiv.textContent = company;
         optionDiv.addEventListener('click', (e) => {

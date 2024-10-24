@@ -35,7 +35,7 @@ def register_user(username, company_list):
     else:
         with open(user_data_file, 'r+') as file:
             users = json.load(file)
-            users[username] = {"companies": company_list}
+            users[username] = {"companies": company_list, "questions": []}
             file.seek(0)
             json.dump(users, file, indent=4)
         return True
@@ -94,6 +94,44 @@ def get_common_questions():
     common_questions_dict = json.loads(common_questions_json)
 
     return jsonify(common_questions_dict), 200
+
+@app.route('/complete-question', methods=['POST'])
+def complete_question():
+    data = request.json
+    username = data.get('username').strip().lower()
+    question = data.get('question').strip()
+
+    if not login_user(username):
+        return jsonify({"message": "User not found. Please log in first."}), 404
+    
+    with open(user_data_file, 'r+') as file:
+        users = json.load(file)
+        users[username]["questions"].append(question)
+
+        file.seek(0)
+        json.dump(users, file, indent=4)
+        file.truncate()
+
+    return jsonify({"message": f"Questions updated successfully for user '{username}'."}), 200
+
+@app.route('/remove-question', methods=['POST'])
+def remove_question():
+    data = request.json
+    username = data.get('username').strip().lower()
+    question = data.get('question').strip()
+
+    if not login_user(username):
+        return jsonify({"message": "User not found. Please log in first."}), 404
+    
+    with open(user_data_file, 'r+') as file:
+        users = json.load(file)
+        users[username]["questions"].remove(question)
+
+        file.seek(0)
+        json.dump(users, file, indent=4)
+        file.truncate()
+    
+    return jsonify({"message": f"Questions updated successfully for user '{username}'."}), 200
 
 # update companies
 @app.route('/update-companies', methods=['POST'])
