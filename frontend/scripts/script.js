@@ -14,6 +14,7 @@ const companies = [
 ];
 
 const myCompanies = new Set();
+const completedQuestions = new Set();
 
 const dropdown = document.getElementById("dropdown");
 
@@ -48,6 +49,50 @@ function renderCompanyList() {
 
         // Append the company block to the list
         companyList.appendChild(companyItem);
+    });
+}
+
+function checkQuestion(question) {
+    completedQuestions.add(question);
+    let username = getUsername();
+    fetch('http://localhost:5000/complete-question', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "username": username,
+            "question": question
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+function uncheckQuestion(question) {
+    completedQuestions.delete(question);
+    let username = getUsername();
+    fetch('http://localhost:5000/remove-question', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "username": username,
+            "question": question
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
     });
 }
 
@@ -89,6 +134,15 @@ function renderLeetcodeList() {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.classList.add('leetcode-checkbox');
+                checkbox.checked = completedQuestions.has(question.Title);
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        console.log(question.Title, 'is checked!');
+                        checkQuestion(question.Title);
+                    } else {
+                        uncheckQuestion(question.Title);
+                    }
+                });
                 leetcodeItem.appendChild(checkbox);
 
                 // Append the question block to the list
@@ -198,7 +252,7 @@ function renderTitle() {
 // Initializing the page
 renderTitle();
 
-// Initialize the company list
+// Initialize my companies
 fetch('http://localhost:5000/get-companies', {
     method: 'POST',
     headers: {
@@ -215,6 +269,29 @@ fetch('http://localhost:5000/get-companies', {
     .then((data) => { 
         console.log(data); 
         data.companies.forEach((d) => myCompanies.add(d))
+        renderLeetcodeList();
+        renderCompanyList();
+    })
+    .catch(error => console.error('Error:', error));
+
+// Initialize my completed questions
+fetch('http://localhost:5000/get-questions', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username: getUsername() }),
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data) => { 
+        console.log(data); 
+        data.questions.forEach((d) => completedQuestions.add(d));
+        console.log("completedQuestions", completedQuestions);
         renderLeetcodeList();
         renderCompanyList();
     })

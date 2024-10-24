@@ -29,6 +29,11 @@ def get_user_companies_for_display(username):
         users = json.load(file)
     return users.get(username, {}).get('companies', [])
 
+def get_user_questions(username):
+    with open(user_data_file, 'r') as file:
+        users = json.load(file)
+    return users.get(username, {}).get('questions', [])
+
 def register_user(username, company_list):
     if username_exists(username):
         return False
@@ -154,13 +159,17 @@ def update_companies():
 
     return jsonify({"message": f"Companies updated successfully for user '{username}'."}), 200
 
-
-# get companies
 @app.route('/get-companies', methods=['POST'])
 def get_companies():
     data = request.json
     username = data.get('username').strip().lower()
     return jsonify({"companies": get_user_companies_for_display(username)}), 200
 
+@app.route('/get-questions', methods=['POST'])
+def get_questions():
+    data = request.json
+    username = data.get('username').strip().lower()
+    return jsonify({"questions": get_user_questions(username)}), 200
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5000, debug=True)
