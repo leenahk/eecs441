@@ -13,6 +13,14 @@ and navigate to localhost:8000 (or whatever default port was given) in your brow
 
 ## Backend
 
+To run the back end
+
+```
+cd backend
+pip install -r requirements.txt
+python3 data.py
+```
+
 ### Register
 
 ```
