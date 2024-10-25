@@ -175,4 +175,33 @@ Track user progress: Add a progress section to the users.json file that tracks a
 Answering a question: Add a new route to mark a question as answered for a specific company.
 Check completion: Add logic to check whether all questions for a company are answered and cross off the company once complete.
 
+
+/get-finished-companies -> returns list of finished companies
+/get-common-questions -> stays
+/answer-question -> what runs when checkbox is checked
+/unanswer-question -> uncheck checkbox
+
+
+{
+    "user1": {
+        "companies" : {
+            "microsoft" : {
+                "total-questions": 10,
+                "remaining-questions": 5,
+            },
+            "google": {
+            }
+        },
+        "completed-questions": []
+    }
+}
+
+companies-to-questions = {
+    "microsoft" : {
+        "questions": []
+    },
+    "google": {
+        "questions": []
+    }
+}
 '''
