@@ -103,19 +103,17 @@ def complete_question():
     data = request.json
     username = data.get('username').strip().lower()
     question = data.get('question').strip()
-
-    # loop through company to question map, update question count
-
-    companies = get_user_companies(username)
     company_name = company_questions.loc[company_questions['Title'] == question, 'Company'].values
     
-    for i in company_name:
-        if i in companies.keys():
-            companies[i]["remaining-questions"] -= 1
-
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        users[username]["completed-questions"].append(question)
+        if question in users[username]["completed-questions"]:
+            for company in company_name:
+                if company in users[username]["companies"]:
+                    users[username]["companies"][company]["remaining-questions"] -= 1
+            
+            users[username]["completed-questions"].remove(question)
+
         file.seek(0)
         json.dump(users, file, indent=4)
         file.truncate()
@@ -127,10 +125,18 @@ def remove_question():
     data = request.json
     username = data.get('username').strip().lower()
     question = data.get('question').strip()
+    company_name = company_questions.loc[company_questions['Title'] == question, 'Company'].values
     
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        users[username]["completed-questions"].remove(question)
+        # users[username]["completed-questions"].remove(question)
+
+        if question in users[username]["completed-questions"]:
+            for company in company_name:
+                if company in users[username]["companies"]:
+                    users[username]["companies"][company]["remaining-questions"] -= 1
+            
+            users[username]["completed-questions"].remove(question)
 
         file.seek(0)
         json.dump(users, file, indent=4)
@@ -145,6 +151,11 @@ def update_companies():
     username = data.get('username').strip().lower()
     new_companies = {company.strip().lower(): {"total-questions": 0, "remaining-questions": 0} for company in data.get('companies', [])}
 
+    for company in new_companies.keys():
+        total_questions = company_questions[company_questions['Company'].str.lower() == company].shape[0]
+        new_companies[company]["total-questions"] = total_questions
+        new_companies[company]["remaining-questions"] = total_questions 
+    
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
         users[username]['companies'].update(new_companies)
