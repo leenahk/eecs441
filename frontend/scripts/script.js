@@ -65,13 +65,13 @@ function checkQuestion(question) {
             "question": question
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 function uncheckQuestion(question) {
@@ -87,13 +87,13 @@ function uncheckQuestion(question) {
             "question": question
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 function renderLeetcodeList() {
@@ -266,9 +266,12 @@ fetch('http://localhost:5000/get-companies', {
         }
         return response.json();
     })
-    .then((data) => { 
-        console.log(data); 
-        data.companies.forEach((d) => myCompanies.add(d))
+    .then((data) => {
+        console.log(data);
+        for (const key in data["companies"]) {
+            console.log(key);
+            myCompanies.add(key);
+        }
         renderLeetcodeList();
         renderCompanyList();
     })
@@ -288,8 +291,8 @@ fetch('http://localhost:5000/get-questions', {
         }
         return response.json();
     })
-    .then((data) => { 
-        console.log(data); 
+    .then((data) => {
+        console.log(data);
         data.questions.forEach((d) => completedQuestions.add(d));
         console.log("completedQuestions", completedQuestions);
         renderLeetcodeList();
