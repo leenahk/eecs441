@@ -9,6 +9,8 @@ CORS(app)
 
 user_data_file = 'users.json'
 company_questions_file = 'company_questions.csv'
+company_questions = pd.read_csv(company_questions_file)
+
 
 if not os.path.exists(user_data_file):
     with open(user_data_file, 'w') as file:
@@ -22,7 +24,12 @@ def username_exists(username):
 def get_user_companies(username):
     with open(user_data_file, 'r') as file:
         users = json.load(file)
-    return users.get(username, {}).get('companies', [])
+    return users.get(username, {}).get('companies', {})
+
+def get_completed_questions(username):
+    with open(user_data_file, 'r') as file:
+        users = json.load(file)
+    return users.get(username, {}).get('completed-questions', [])
 
 def register_user(username, company_list):
     if username_exists(username):
@@ -30,7 +37,11 @@ def register_user(username, company_list):
     else:
         with open(user_data_file, 'r+') as file:
             users = json.load(file)
-            users[username] = {"companies": company_list, "progress": {company: [] for company in company_list}}
+            users[username] = {
+                "companies": {company: {"total-questions": 0, "remaining-questions": 0} for company in company_list},
+                "completed-questions": []
+            }
+            
             file.seek(0)
             json.dump(users, file, indent=4)
         return True
@@ -71,101 +82,92 @@ def get_common_questions():
     if not login_user(username):
         return jsonify({"message": "User not found. Please log in first."}), 404
 
-    # get user companies and their progress
     company_list = get_user_companies(username)
-    with open(user_data_file, 'r') as file:
+
+    # filter data based on user's companies
+    filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list.keys())]
+    common_questions_filtered = (
+        filtered_df.groupby(['Title', 'Leetcode Question Link'])
+        .size()
+        .reset_index(name='Count')
+        .sort_values(by='Count', ascending=False)
+    )
+
+    common_questions_json = common_questions_filtered.head(10).to_json(orient='records')
+    common_questions_dict = json.loads(common_questions_json)
+
+    return jsonify(common_questions_dict), 200
+
+@app.route('/complete-question', methods=['POST'])
+def complete_question():
+    data = request.json
+    username = data.get('username').strip().lower()
+    question = data.get('question').strip()
+
+    # loop through company to question map, update question count
+
+    companies = get_user_companies(username)
+    company_name = company_questions.loc[company_questions['Title'] == question, 'Company'].values
+    
+    for i in company_name:
+        if i in companies.keys():
+            companies[i]["remaining-questions"] -= 1
+
+    with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        user_progress = users[username]['progress']
+        users[username]["completed-questions"].append(question)
+        file.seek(0)
+        json.dump(users, file, indent=4)
+        file.truncate()
 
-    company_questions = pd.read_csv(company_questions_file)
+    return jsonify({"message": f"Questions updated successfully for user '{username}'."}), 200
 
-    completed_companies = []
-    company_question_status = {}
+@app.route('/remove-question', methods=['POST'])
+def remove_question():
+    data = request.json
+    username = data.get('username').strip().lower()
+    question = data.get('question').strip()
+    
+    with open(user_data_file, 'r+') as file:
+        users = json.load(file)
+        users[username]["completed-questions"].remove(question)
 
-    for company in company_list:
-        # get all questions for the company
-        company_df = company_questions[company_questions['Company'].str.lower() == company]
-        all_questions = company_df['Title'].tolist()
+        file.seek(0)
+        json.dump(users, file, indent=4)
+        file.truncate()
+    
+    return jsonify({"message": f"Questions updated successfully for user '{username}'."}), 200
 
-        # get user's answered questions for this company
-        answered_questions = user_progress.get(company, [])
-
-        # check if all questions are answered
-        if set(answered_questions) == set(all_questions):
-            completed_companies.append(company)
-        else:
-            company_question_status[company] = {
-                "total_questions": len(all_questions),
-                "answered_questions": len(answered_questions),
-                "remaining_questions": len(all_questions) - len(answered_questions),
-                "questions": [q for q in all_questions if q not in answered_questions]
-            }
-
-    return jsonify({
-        "completed_companies": completed_companies,
-        "in_progress_companies": company_question_status
-    }), 200
-
-
-# update companies
+# update companies with question counts
 @app.route('/update-companies', methods=['POST'])
 def update_companies():
     data = request.json
     username = data.get('username').strip().lower()
-    new_companies = [company.strip().lower() for company in data.get('companies', [])]
-
-    if not login_user(username):
-        return jsonify({"message": "User not found. Please log in first."}), 404
+    new_companies = {company.strip().lower(): {"total-questions": 0, "remaining-questions": 0} for company in data.get('companies', [])}
 
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        updated_companies = list(set(new_companies))  # avoid duplicates
-        users[username]['companies'] = updated_companies
-
+        users[username]['companies'].update(new_companies)
         file.seek(0)
         json.dump(users, file, indent=4)
         file.truncate()
 
     return jsonify({"message": f"Companies updated successfully for user '{username}'."}), 200
 
-
-# get companies
 @app.route('/get-companies', methods=['POST'])
 def get_companies():
     data = request.json
     username = data.get('username').strip().lower()
     return jsonify({"companies": get_user_companies(username)}), 200
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
-@app.route('/answer-question', methods=['POST'])
-def answer_question():
+@app.route('/get-questions', methods=['POST'])
+def get_questions():
     data = request.json
     username = data.get('username').strip().lower()
-    company = data.get('company').strip().lower()
-    question_title = data.get('question_title').strip()
+    return jsonify({"completed-questions": get_completed_questions(username)}), 200
 
-    if not login_user(username):
-        return jsonify({"message": "User not found. Please log in first."}), 404
-
-    with open(user_data_file, 'r+') as file:
-        users = json.load(file)
-
-        # check if user has the company in their list
-        if company not in users[username]['companies']:
-            return jsonify({"message": "Company not found in user's list."}), 404
-
-        # mark question as answered
-        if question_title not in users[username]['progress'][company]:
-            users[username]['progress'][company].append(question_title)
-
-        file.seek(0)
-        json.dump(users, file, indent=4)
-        file.truncate()
-
-    return jsonify({"message": f"Question '{question_title}' for company '{company}' marked as answered."}), 200
+if __name__ == "__main__":
+    app.run(port=5000, debug=True)
 
 
 # need a way to cross the companies off for a user once they've checked off all the questions for a company
@@ -204,4 +206,5 @@ companies-to-questions = {
         "questions": []
     }
 }
+
 '''
