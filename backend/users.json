@@ -1,0 +1,12 @@
+{
+    "ashvin": {
+        "companies": [
+            "Google"
+        ],
+        "questions": [
+            "Valid Mountain Array",
+            "Valid Number",
+            "Valid Palindrome"
+        ]
+    }
+}
