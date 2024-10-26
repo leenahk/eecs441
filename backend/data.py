@@ -91,7 +91,7 @@ def get_common_questions():
     company_list = get_user_companies(username)
 
     # filter data based on user's companies
-    filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list.keys())]
+    filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list)]
     common_questions_filtered = (
         filtered_df.groupby(['Title', 'Leetcode Question Link'])
         .size()
@@ -113,17 +113,16 @@ def complete_question():
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
         
-        if question in users[username]["incomplete-questions"]:
-            users[username]["incomplete-questions"].remove(question)
-            users[username]["completed-questions"].append(question)
-            
-            for company in company_questions[company_questions['Title'] == question]['Company']:
-                if company.lower() in users[username]["companies"]:
-                    users[username]["companies"][company.lower()]["remaining-questions"] -= 1
-
-            file.seek(0)
-            json.dump(users, file, indent=4)
-            file.truncate()
+        users[username]["completed-questions"].append(question)
+        
+        for company in company_questions[company_questions['Title'] == question]['Company']:
+            for user_company in users[username]["companies"]:
+                if company == user_company.lower():
+                    users[username]["companies"][user_company]["remaining-questions"] -= 1
+        
+        file.seek(0)
+        json.dump(users, file, indent=4)
+        file.truncate()
 
     return jsonify({"message": f"Question marked as completed for user '{username}'."}), 200
 
@@ -137,17 +136,16 @@ def remove_question():
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
         
-        if question in users[username]["completed-questions"]:
-            users[username]["completed-questions"].remove(question)
-            users[username]["incomplete-questions"].append(question)
+        users[username]["completed-questions"].remove(question)
             
-            for company in company_questions[company_questions['Title'] == question]['Company']:
-                if company.lower() in users[username]["companies"]:
-                    users[username]["companies"][company.lower()]["remaining-questions"] += 1
+        for company in company_questions[company_questions['Title'] == question]['Company']:
+           for user_company in users[username]["companies"]:
+               if company == user_company.lower():
+                   users[username]["companies"][user_company]["remaining-questions"] += 1
 
-            file.seek(0)
-            json.dump(users, file, indent=4)
-            file.truncate()
+        file.seek(0)
+        json.dump(users, file, indent=4)
+        file.truncate()
 
     return jsonify({"message": f"Question marked as incomplete for user '{username}'."}), 200
 
@@ -157,9 +155,11 @@ def update_companies():
     data = request.json
     username = data.get('username').strip().lower()
     new_companies = {company: {"total-questions": 0, "remaining-questions": 0} for company in data.get('companies', [])}
+    print(new_companies)
 
     for company in new_companies.keys():
-        total_questions = company_questions[company_questions['Company'].str.lower() == company].shape[0]
+        total_questions = company_questions[company_questions['Company'] == company.lower()].shape[0]
+        print(total_questions)
         new_companies[company]["total-questions"] = total_questions
         new_companies[company]["remaining-questions"] = total_questions 
     
