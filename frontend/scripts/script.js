@@ -15,6 +15,7 @@ const companies = [
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
+let companyProgressData;
 
 const dropdown = document.getElementById("dropdown");
 
@@ -37,12 +38,16 @@ function renderCompanyList() {
 
         // Add the company name
         const companyName = document.createElement('span');
-        companyName.textContent = company;
+        let totalQuestions = companyProgressData[company]["total-questions"];
+        let remainingQuestions = companyProgressData[company]["remaining-questions"]
+        companyName.textContent = company +
+            ` (${companyProgressData[company]["remaining-questions"]} of 
+            ${totalQuestions})`;
         companyItem.appendChild(companyName);
 
 
         // Show company is completed
-        if (company == "Google") {
+        if (companyProgressData[company]["remaining-questions"] == 0) {
             companyItem.classList.add('completed');
             const completedText = document.createElement('span');
             completedText.textContent = 'Completed!';
@@ -278,6 +283,7 @@ fetch('http://localhost:5000/get-companies', {
     })
     .then((data) => {
         console.log("/get-companies", data);
+        companyProgressData = data.companies;
         for (const key in data["companies"]) {
             myCompanies.add(key);
         }
