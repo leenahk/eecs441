@@ -1,17 +1,18 @@
-const companies = [
-    'Google', 'Apple', 'Microsoft', 'Amazon', 'Facebook', 'Tesla', 'Intel', 'IBM', 'Oracle', 'Cisco',
-    'Adobe', 'Salesforce', 'NVIDIA', 'Netflix', 'Samsung', 'Qualcomm', 'HP', 'Dell', 'Spotify', 'Slack',
-    'Zoom', 'Snap', 'Twitter', 'Reddit', 'Pinterest', 'Shopify', 'Dropbox', 'GitHub', 'Stripe', 'PayPal',
-    'Square', 'Uber', 'Lyft', 'Airbnb', 'eBay', 'Baidu', 'Tencent', 'Alibaba', 'Huawei', 'Xiaomi',
-    'ZTE', 'Lenovo', 'Toshiba', 'ASUS', 'LG', 'AMD', 'Western Digital', 'VMware', 'SpaceX', 'Palantir',
-    'Epic Games', 'Unity Technologies', 'Electronic Arts', 'Activision Blizzard', 'Zynga', 'LinkedIn',
-    'Yelp', 'Twitch', 'Bumble', 'Instacart', 'DoorDash', 'Robinhood', 'Coinbase', 'Squarespace', 'WeWork',
-    'Cloudflare', 'Databricks', 'Snowflake', 'Roku', 'Sonos', 'Ring', 'GoPro', 'Vimeo', 'MongoDB',
-    'Atlassian', 'DocuSign', 'Twilio', 'Okta', 'Workday', 'ServiceNow', 'HubSpot', 'ZoomInfo', 'Bitdefender',
-    'CrowdStrike', 'Fortinet', 'McAfee', 'NortonLifeLock', 'Verizon', 'AT&T', 'T-Mobile', 'Intellicheck',
-    'Splunk', 'Elastic', 'Cloudera', 'Dropbox', 'Box', 'Fastly', 'Hootsuite', 'Buffer', 'Canva', 'Trello',
-    'Miro', 'Notion', 'Figma', 'Zapier', 'IFTTT', 'Wix'
-];
+const companies = ['atlassian','morgan-stanley','pinterest','yatra','sumologic','google','yandex','bloomreach','clutter','works-applications','grab',
+'alation','leap-motion','point72','infosys','jingchi','twitch','groupon','sapient','capital-one','kakao','roblox','rackspace','yahoo','paytm',
+'bookingcom','alibaba','poshmark','lyft','jane-street','druva','forusall','traveloka','poynt','national-instruments','godaddy','quora','snapchat',
+'qualcomm','inmobi','machinezone','box','mckinsey','liveramp','square','docusign','barclays','twilio','limebike','citadel','appdynamics','meta',
+'amazon','paypal','thumbtack','two-sigma','iit-bombay','baidu','ebay','intuit','ge-digital','cloudera','epic-systems','citrix','aetion','bloomberg',
+'walmart','arista-networks','apple','netflix','pramp','coupang','valve','coursera','tandemg','akuna-capital','mathworks','triplebyte','uber',
+'symantec','flipkart','blizzard','reddit','united-health-group','akuna','intel','netease','ixl','splunk','twitter','servicenow','riot-games',
+'flexport','meituan','linkedin','nutanix','dataminr','c3-iot','pocket-gems','wayfair','emc','tencent','quantcast','huawei','redfin','airtel',
+'visa','turvo','oracle','qualtrics','machine-zone','ibm','honey','maq-software','blackrock','indeed','radius','bytedancetoutiao','dell','hrt',
+'garena','factset','fallible','akamai','zoho','cruise-automation','zulily','palantir','accolite','snapdeal','rubrik','expedia','tripadvisor',
+'phonepe','electronic-arts','medianet','doordash','opendoor','gilt-groupe','pure-storage','virtu','ponyai','arista','dropbox','tesla','microsoft',
+'adobe','yelp','samsung','airbnb','drawbridge','fidessa','deliveryhero','zillow','robinhood','hbo','vmware','nvidia','postmates','jump-trading',
+'netsuite','zappos','deutsche-bank','american-express','booking','salesforce','asana','c3ai','zenefits','helix','houzz','uipath','affinity',
+'palantir-technologies','spotify','didi','cisco','affirm','wish','zalando','microstrategy','zscaler','jp-morgan-chase','jpmorgan','hotstar',
+'bytedance','de-shaw','goldman-sachs','audible','sap','f5-networks','quip','karat','databricks','tableau','hulu','cohesity','gsn-games','codenation']
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
