@@ -26,6 +26,17 @@
   background-color: #f9f9f9;
 }
 
+.completed {
+  background-color: #e0e0e0;
+  color: #aaa;
+}
+
+.completed-text {
+  color: rgb(0, 110, 0);
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 /* Style for the trash icon */
 .trash-icon {
   cursor: pointer;

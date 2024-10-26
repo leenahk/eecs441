@@ -40,6 +40,16 @@ function renderCompanyList() {
         companyName.textContent = company;
         companyItem.appendChild(companyName);
 
+
+        // Show company is completed
+        if (company == "Google") {
+            companyItem.classList.add('completed');
+            const completedText = document.createElement('span');
+            completedText.textContent = 'Completed!';
+            completedText.classList.add('completed-text');
+            companyItem.appendChild(completedText);
+        }
+
         // Add the trash icon
         const trashIcon = document.createElement('span');
         trashIcon.innerHTML = '🗑️';  // Using a trash emoji for the icon
@@ -67,7 +77,7 @@ function checkQuestion(question) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            console.log('/complete-question', data);
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -89,7 +99,7 @@ function uncheckQuestion(question) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            console.log('/remove-question', data);
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -114,7 +124,7 @@ function renderLeetcodeList() {
         })
         .then((data) => {
             leetcodeQuestions = data;
-            console.log("LeetCode Questions", leetcodeQuestions);
+            console.log("/common-questions", data);
 
             let leetcodeList = document.getElementById("leetcodeList");
             leetcodeList.innerHTML = ''; // Clear the previous list
@@ -170,7 +180,7 @@ function removeCompany(company) {
             return response.json();
         })
         .then((data) => {
-            console.log(data);
+            console.log("/update-companies", data);
             renderCompanyList();
             renderLeetcodeList();
         })
@@ -197,7 +207,7 @@ function updateMyCompanies() {
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                console.log("/update-companies", data);
                 renderCompanyList();
                 renderLeetcodeList();
                 document.getElementById("searchInput").value = "";
@@ -267,9 +277,8 @@ fetch('http://localhost:5000/get-companies', {
         return response.json();
     })
     .then((data) => {
-        console.log(data);
+        console.log("/get-companies", data);
         for (const key in data["companies"]) {
-            console.log(key);
             myCompanies.add(key);
         }
         renderLeetcodeList();
@@ -292,7 +301,7 @@ fetch('http://localhost:5000/get-questions', {
         return response.json();
     })
     .then((data) => {
-        console.log(data);
+        console.log("/get-questions", data);
         data.questions.forEach((d) => completedQuestions.add(d));
         console.log("completedQuestions", completedQuestions);
         renderLeetcodeList();
