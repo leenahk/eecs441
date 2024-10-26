@@ -44,12 +44,13 @@ def register_user(username, company_list):
             users = json.load(file)
             users[username] = {
                 "companies": {company: {"total-questions": 0, "remaining-questions": 0} for company in company_list},
-                "completed-questions": []
+                "completed-questions": [],
+                "incomplete-questions": company_questions[company_questions['Company'].str.lower().isin(company_list)]['Title'].tolist()
             }
-            
             file.seek(0)
             json.dump(users, file, indent=4)
         return True
+
 
 
 def login_user(username):
@@ -108,48 +109,49 @@ def complete_question():
     data = request.json
     username = data.get('username').strip().lower()
     question = data.get('question').strip()
-    company_name = company_questions.loc[company_questions['Title'] == question, 'Company'].values
-    
+
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        if question in users[username]["completed-questions"]:
-            for company in company_name:
-                if company in users[username]["companies"]:
-                    users[username]["companies"][company]["remaining-questions"] -= 1
+        
+        if question in users[username]["incomplete-questions"]:
+            users[username]["incomplete-questions"].remove(question)
+            users[username]["completed-questions"].append(question)
             
-            users[username]["completed-questions"].remove(question)
+            for company in company_questions[company_questions['Title'] == question]['Company']:
+                if company.lower() in users[username]["companies"]:
+                    users[username]["companies"][company.lower()]["remaining-questions"] -= 1
 
-        file.seek(0)
-        json.dump(users, file, indent=4)
-        file.truncate()
+            file.seek(0)
+            json.dump(users, file, indent=4)
+            file.truncate()
 
-    return jsonify({"message": f"Questions updated successfully for user '{username}'."}), 200
+    return jsonify({"message": f"Question marked as completed for user '{username}'."}), 200
+
 
 @app.route('/remove-question', methods=['POST'])
 def remove_question():
     data = request.json
     username = data.get('username').strip().lower()
     question = data.get('question').strip()
-    company_name = company_questions.loc[company_questions['Title'] == question, 'Company'].values
-    
+
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
-        # users[username]["completed-questions"].remove(question)
-
+        
         if question in users[username]["completed-questions"]:
-            for company in company_name:
-                if company in users[username]["companies"]:
-                    users[username]["companies"][company]["remaining-questions"] -= 1
-            
             users[username]["completed-questions"].remove(question)
+            users[username]["incomplete-questions"].append(question)
+            
+            for company in company_questions[company_questions['Title'] == question]['Company']:
+                if company.lower() in users[username]["companies"]:
+                    users[username]["companies"][company.lower()]["remaining-questions"] += 1
 
-        file.seek(0)
-        json.dump(users, file, indent=4)
-        file.truncate()
-    
-    return jsonify({"message": f"Questions updated successfully for user '{username}'."}), 200
+            file.seek(0)
+            json.dump(users, file, indent=4)
+            file.truncate()
 
-# update companies with question counts
+    return jsonify({"message": f"Question marked as incomplete for user '{username}'."}), 200
+
+
 @app.route('/update-companies', methods=['POST'])
 def update_companies():
     data = request.json
@@ -164,11 +166,15 @@ def update_companies():
     with open(user_data_file, 'r+') as file:
         users = json.load(file)
         users[username]['companies'].update(new_companies)
+        
+        # reinitialize incomplete questions with any new questions
+        users[username]['incomplete-questions'] = company_questions[company_questions['Company'].str.lower().isin(new_companies.keys())]['Title'].tolist()
         file.seek(0)
         json.dump(users, file, indent=4)
         file.truncate()
 
     return jsonify({"message": f"Companies updated successfully for user '{username}'."}), 200
+
 
 @app.route('/get-companies', methods=['POST'])
 def get_companies():
