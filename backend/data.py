@@ -24,7 +24,12 @@ def username_exists(username):
 def get_user_companies(username):
     with open(user_data_file, 'r') as file:
         users = json.load(file)
-    return users.get(username, {}).get('companies', {})
+    return [c.lower() for c in users.get(username, {}).get('companies', [])]
+
+def get_user_companies_for_display(username):
+    with open(user_data_file, 'r') as file:
+        users = json.load(file)
+    return users.get(username, {}).get('companies', [])
 
 def get_completed_questions(username):
     with open(user_data_file, 'r') as file:
@@ -149,7 +154,7 @@ def remove_question():
 def update_companies():
     data = request.json
     username = data.get('username').strip().lower()
-    new_companies = {company.strip().lower(): {"total-questions": 0, "remaining-questions": 0} for company in data.get('companies', [])}
+    new_companies = {company: {"total-questions": 0, "remaining-questions": 0} for company in data.get('companies', [])}
 
     for company in new_companies.keys():
         total_questions = company_questions[company_questions['Company'].str.lower() == company].shape[0]
@@ -169,13 +174,13 @@ def update_companies():
 def get_companies():
     data = request.json
     username = data.get('username').strip().lower()
-    return jsonify({"companies": get_user_companies(username)}), 200
+    return jsonify({"companies": get_user_companies_for_display(username)}), 200
 
 @app.route('/get-questions', methods=['POST'])
 def get_questions():
     data = request.json
     username = data.get('username').strip().lower()
-    return jsonify({"completed-questions": get_completed_questions(username)}), 200
+    return jsonify({"questions": get_completed_questions(username)}), 200
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
