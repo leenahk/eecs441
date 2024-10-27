@@ -81,8 +81,9 @@ def get_common_questions():
 
     # filter data based on user's companies
     filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list)]
+    unanswered_df = filtered_df[~filtered_df['Title'].isin(get_completed_questions(username))]
     common_questions_filtered = (
-        filtered_df.groupby(['Title', 'Leetcode Question Link'])
+        unanswered_df.groupby(['Title', 'Leetcode Question Link'])
         .size()
         .reset_index(name='Count')
         .sort_values(by='Count', ascending=False)
@@ -144,10 +145,7 @@ def update_companies():
     data = request.json
     username = data.get('username').strip().lower()
     new_companies = {company: {"total-questions": 0, "remaining-questions": 0} for company in data.get('companies', [])}
-    completed_questions = []
-    with open(user_data_file, 'r') as file:
-        users = json.load(file)
-        completed_questions = users[username]["completed-questions"]
+    completed_questions = get_completed_questions(username)
 
     for company in new_companies.keys():
         filtered_df = company_questions[company_questions['Company'] == company.lower().replace(' ', '-')]

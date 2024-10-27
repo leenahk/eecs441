@@ -1,4 +1,3 @@
-/* Container for the company and leetcode lists */
 .info-container {
   display: flex;
   width: 700px;
@@ -42,18 +41,10 @@
   margin-left: 10px;
 }
 
-/* Style for the trash icon */
-.trash-icon {
-  cursor: pointer;
-  color: red;
-  font-size: 18px;
+.refresh-button {
+  margin-top: 0px;
 }
 
-.trash-icon:hover {
-  color: darkred;
-}
-
-/* Checkbox for LeetCode questions */
 .leetcode-checkbox {
   transform: scale(1.2);
 }
@@ -91,4 +82,8 @@
 
 .dropdown div:hover {
   background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
 }

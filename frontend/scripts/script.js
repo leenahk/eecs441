@@ -27,6 +27,7 @@ const myCompanies = new Set();
 const completedQuestions = new Set();
 let companyProgressData;
 let completedQuestionCount = 0;
+let totalQuestionCount = 0;
 
 const dropdown = document.getElementById("dropdown");
 
@@ -131,8 +132,11 @@ function uncheckQuestion(question) {
 }
 
 function testCompletedQuestions() {
+    const leetcodeList = document.getElementById("leetcodeList");
+    const refreshButton = document.getElementById("refreshButton");
     console.log("testCompletedQuestions(): completedQuestionCount", completedQuestionCount);
-    leetcodeList.classList.toggle('completed', completedQuestionCount == 10);
+    refreshButton.classList.toggle('hidden', completedQuestionCount != totalQuestionCount || totalQuestionCount == 0);
+    leetcodeList.classList.toggle('completed', completedQuestionCount == totalQuestionCount);
 }
 
 function renderLeetcodeList() {
@@ -155,9 +159,10 @@ function renderLeetcodeList() {
             leetcodeQuestions = data;
             console.log("/common-questions", data);
 
-            let leetcodeList = document.getElementById("leetcodeList");
+            const leetcodeList = document.getElementById("leetcodeList");
             leetcodeList.innerHTML = ''; // Clear the previous list
             completedQuestionCount = 0;
+            totalQuestionCount = data.length;
 
             leetcodeQuestions.forEach((question) => {
                 // Create a container for each LeetCode question
