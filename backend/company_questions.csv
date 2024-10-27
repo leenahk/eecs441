@@ -6740,7 +6740,7 @@ ID,Title,Acceptance,Difficulty,Frequency,Leetcode Question Link,Company
 984,String Without AAA or BBB,37.7%,Medium,0.0, https://leetcode.com/problems/string-without-aaa-or-bbb,zalando
 1227,Airplane Seat Assignment Probability,61.0%,Medium,0.0, https://leetcode.com/problems/airplane-seat-assignment-probability,microstrategy
 1154,Day of the Year,49.3%,Easy,0.0, https://leetcode.com/problems/day-of-the-year,zscaler
-1247,Minimum Swaps to Make Strings Equal,60.1%,Medium,0.0, https://leetcode.com/problems/minimum-swaps-to-make-strings-equal,jp-morgan-chase
+1247,Minimum Swaps to Make Strings Equal,60.1%,Medium,0.0, https://leetcode.com/problems/minimum-swaps-to-make-strings-equal,jpmorgan
 202,Happy Number,50.4%,Easy,3.472501931831341, https://leetcode.com/problems/happy-number,jpmorgan
 20,Valid Parentheses,39.0%,Easy,2.091183527592892, https://leetcode.com/problems/valid-parentheses,jpmorgan
 322,Coin Change,35.5%,Medium,0.7098651233544434, https://leetcode.com/problems/coin-change,jpmorgan

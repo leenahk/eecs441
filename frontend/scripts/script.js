@@ -1,18 +1,27 @@
-const companies = ['atlassian','morgan-stanley','pinterest','yatra','sumologic','google','yandex','bloomreach','clutter','works-applications','grab',
-'alation','leap-motion','point72','infosys','jingchi','twitch','groupon','sapient','capital-one','kakao','roblox','rackspace','yahoo','paytm',
-'bookingcom','alibaba','poshmark','lyft','jane-street','druva','forusall','traveloka','poynt','national-instruments','godaddy','quora','snapchat',
-'qualcomm','inmobi','machinezone','box','mckinsey','liveramp','square','docusign','barclays','twilio','limebike','citadel','appdynamics','meta',
-'amazon','paypal','thumbtack','two-sigma','iit-bombay','baidu','ebay','intuit','ge-digital','cloudera','epic-systems','citrix','aetion','bloomberg',
-'walmart','arista-networks','apple','netflix','pramp','coupang','valve','coursera','tandemg','akuna-capital','mathworks','triplebyte','uber',
-'symantec','flipkart','blizzard','reddit','united-health-group','akuna','intel','netease','ixl','splunk','twitter','servicenow','riot-games',
-'flexport','meituan','linkedin','nutanix','dataminr','c3-iot','pocket-gems','wayfair','emc','tencent','quantcast','huawei','redfin','airtel',
-'visa','turvo','oracle','qualtrics','machine-zone','ibm','honey','maq-software','blackrock','indeed','radius','bytedancetoutiao','dell','hrt',
-'garena','factset','fallible','akamai','zoho','cruise-automation','zulily','palantir','accolite','snapdeal','rubrik','expedia','tripadvisor',
-'phonepe','electronic-arts','medianet','doordash','opendoor','gilt-groupe','pure-storage','virtu','ponyai','arista','dropbox','tesla','microsoft',
-'adobe','yelp','samsung','airbnb','drawbridge','fidessa','deliveryhero','zillow','robinhood','hbo','vmware','nvidia','postmates','jump-trading',
-'netsuite','zappos','deutsche-bank','american-express','booking','salesforce','asana','c3ai','zenefits','helix','houzz','uipath','affinity',
-'palantir-technologies','spotify','didi','cisco','affirm','wish','zalando','microstrategy','zscaler','jp-morgan-chase','jpmorgan','hotstar',
-'bytedance','de-shaw','goldman-sachs','audible','sap','f5-networks','quip','karat','databricks','tableau','hulu','cohesity','gsn-games','codenation']
+const companies = [
+    'Atlassian', 'Morgan Stanley', 'Pinterest', 'Yatra', 'Sumo Logic', 'Google', 'Yandex', 'Bloomreach', 'Clutter', 
+    'Works Applications', 'Grab', 'Alation', 'Leap Motion', 'Point72', 'Infosys', 'Jingchi', 'Twitch', 'Groupon', 
+    'Sapient', 'Capital One', 'Kakao', 'Roblox', 'Rackspace', 'Yahoo', 'Paytm', 'Booking.com', 'Alibaba', 'Poshmark', 
+    'Lyft', 'Jane Street', 'Druva', 'ForUsAll', 'Traveloka', 'Poynt', 'National Instruments', 'GoDaddy', 'Quora', 
+    'Snapchat', 'Qualcomm', 'InMobi', 'Machine Zone', 'Box', 'McKinsey', 'LiveRamp', 'Square', 'DocuSign', 'Barclays', 
+    'Twilio', 'LimeBike', 'Citadel', 'AppDynamics', 'Meta', 'Amazon', 'PayPal', 'Thumbtack', 'Two Sigma', 'IIT Bombay', 
+    'Baidu', 'eBay', 'Intuit', 'GE Digital', 'Cloudera', 'Epic Systems', 'Citrix', 'Aetion', 'Bloomberg', 'Walmart', 
+    'Arista Networks', 'Apple', 'Netflix', 'Pramp', 'Coupang', 'Valve', 'Coursera', 'TandemG', 'Akuna Capital', 
+    'MathWorks', 'Triplebyte', 'Uber', 'Symantec', 'Flipkart', 'Blizzard', 'Reddit', 'United Health Group', 'Akuna', 
+    'Intel', 'NetEase', 'IXL', 'Splunk', 'Twitter', 'ServiceNow', 'Riot Games', 'Flexport', 'Meituan', 'LinkedIn', 
+    'Nutanix', 'Dataminr', 'C3.ai', 'Pocket Gems', 'Wayfair', 'EMC', 'Tencent', 'Quantcast', 'Huawei', 'Redfin', 
+    'Airtel', 'Visa', 'Turvo', 'Oracle', 'Qualtrics', 'IBM', 'Honey', 'MAQ Software', 'BlackRock', 'Indeed', 
+    'Radius', 'ByteDance Toutiao', 'Dell', 'HRT', 'Garena', 'FactSet', 'Fallible', 'Akamai', 'Zoho', 'Cruise Automation', 
+    'Zulily', 'Palantir', 'Accolite', 'Snapdeal', 'Rubrik', 'Expedia', 'TripAdvisor', 'PhonePe', 'Electronic Arts', 
+    'Medianet', 'DoorDash', 'Opendoor', 'Gilt Groupe', 'Pure Storage', 'Virtu', 'Pony.ai', 'Arista', 'Dropbox', 
+    'Tesla', 'Microsoft', 'Adobe', 'Yelp', 'Samsung', 'Airbnb', 'Drawbridge', 'Fidessa', 'Delivery Hero', 'Zillow', 
+    'Robinhood', 'HBO', 'VMware', 'NVIDIA', 'Postmates', 'Jump Trading', 'NetSuite', 'Zappos', 'Deutsche Bank', 
+    'American Express', 'Booking', 'Salesforce', 'Asana', 'C3.ai', 'Zenefits', 'Helix', 'Houzz', 'UiPath', 'Affinity', 
+    'Palantir Technologies', 'Spotify', 'Didi', 'Cisco', 'Affirm', 'Wish', 'Zalando', 'MicroStrategy', 'Zscaler',
+    'JPMorgan', 'Hotstar', 'ByteDance', 'DE Shaw', 'Goldman Sachs', 'Audible', 'SAP', 'F5 Networks', 
+    'Quip', 'Karat', 'Databricks', 'Tableau', 'Hulu', 'Cohesity', 'GSN Games', 'CodeNation'
+  ];
+  
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
@@ -42,7 +51,7 @@ function renderCompanyList() {
         let totalQuestions = companyProgressData[company]["total-questions"];
         let remainingQuestions = companyProgressData[company]["remaining-questions"]
         companyName.textContent = company +
-            ` (${companyProgressData[company]["remaining-questions"]} of 
+            ` (${totalQuestions - remainingQuestions} of 
             ${totalQuestions})`;
         companyItem.appendChild(companyName);
 
@@ -84,6 +93,8 @@ function checkQuestion(question) {
         .then(response => response.json())
         .then(data => {
             console.log('/complete-question', data);
+            companyProgressData = data.companies;
+            renderCompanyList();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -106,6 +117,8 @@ function uncheckQuestion(question) {
         .then(response => response.json())
         .then(data => {
             console.log('/remove-question', data);
+            companyProgressData = data.companies;
+            renderCompanyList();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -171,6 +184,7 @@ function renderLeetcodeList() {
 
 function removeCompany(company) {
     myCompanies.delete(company);
+    console.log("removeCompany(): myCompanies", myCompanies);
     const user = sessionStorage.getItem("username");
     fetch('http://localhost:5000/update-companies', {
         method: 'POST',
@@ -198,7 +212,6 @@ function updateMyCompanies() {
     if (companySelected) {
         const user = sessionStorage.getItem("username");
         myCompanies.add(input);
-        console.log(Array.from(myCompanies));
         fetch('http://localhost:5000/update-companies', {
             method: 'POST',
             headers: {
@@ -214,6 +227,7 @@ function updateMyCompanies() {
             })
             .then(data => {
                 console.log("/update-companies", data);
+                companyProgressData = data.companies;
                 renderCompanyList();
                 renderLeetcodeList();
                 document.getElementById("searchInput").value = "";
@@ -268,6 +282,26 @@ function renderTitle() {
 // Initializing the page
 renderTitle();
 
+// Initialize my completed questions
+fetch('http://localhost:5000/get-questions', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username: getUsername() }),
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data) => {
+        console.log("/get-questions", data);
+        data.questions.forEach((d) => completedQuestions.add(d));
+    })
+    .catch(error => console.error('Error:', error));
+
 // Initialize my companies
 fetch('http://localhost:5000/get-companies', {
     method: 'POST',
@@ -288,29 +322,6 @@ fetch('http://localhost:5000/get-companies', {
         for (const key in data["companies"]) {
             myCompanies.add(key);
         }
-        renderLeetcodeList();
-        renderCompanyList();
-    })
-    .catch(error => console.error('Error:', error));
-
-// Initialize my completed questions
-fetch('http://localhost:5000/get-questions', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username: getUsername() }),
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        console.log("/get-questions", data);
-        data.questions.forEach((d) => completedQuestions.add(d));
-        console.log("completedQuestions", completedQuestions);
         renderLeetcodeList();
         renderCompanyList();
     })
