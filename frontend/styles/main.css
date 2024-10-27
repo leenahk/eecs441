@@ -26,6 +26,11 @@
   background-color: #f9f9f9;
 }
 
+.leetcode-list.completed {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .completed {
   background-color: #e0e0e0;
   color: #aaa;

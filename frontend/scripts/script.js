@@ -26,6 +26,7 @@ const companies = [
 const myCompanies = new Set();
 const completedQuestions = new Set();
 let companyProgressData;
+let completedQuestionCount = 0;
 
 const dropdown = document.getElementById("dropdown");
 
@@ -94,6 +95,8 @@ function checkQuestion(question) {
         .then(data => {
             console.log('/complete-question', data);
             companyProgressData = data.companies;
+            completedQuestionCount += 1;
+            testCompletedQuestions();
             renderCompanyList();
         })
         .catch((error) => {
@@ -118,11 +121,18 @@ function uncheckQuestion(question) {
         .then(data => {
             console.log('/remove-question', data);
             companyProgressData = data.companies;
+            completedQuestionCount -= 1;
+            testCompletedQuestions();
             renderCompanyList();
         })
         .catch((error) => {
             console.error('Error:', error);
         });
+}
+
+function testCompletedQuestions() {
+    console.log("testCompletedQuestions(): completedQuestionCount", completedQuestionCount);
+    leetcodeList.classList.toggle('completed', completedQuestionCount == 10);
 }
 
 function renderLeetcodeList() {
@@ -147,6 +157,7 @@ function renderLeetcodeList() {
 
             let leetcodeList = document.getElementById("leetcodeList");
             leetcodeList.innerHTML = ''; // Clear the previous list
+            completedQuestionCount = 0;
 
             leetcodeQuestions.forEach((question) => {
                 // Create a container for each LeetCode question
@@ -163,10 +174,13 @@ function renderLeetcodeList() {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.classList.add('leetcode-checkbox');
-                checkbox.checked = completedQuestions.has(question.Title);
+                if (completedQuestions.has(question.Title)) {
+                    checkbox.checked = true;
+                    completedQuestionCount += 1;
+                }
+                
                 checkbox.addEventListener('change', () => {
                     if (checkbox.checked) {
-                        console.log(question.Title, 'is checked!');
                         checkQuestion(question.Title);
                     } else {
                         uncheckQuestion(question.Title);
@@ -177,6 +191,8 @@ function renderLeetcodeList() {
                 // Append the question block to the list
                 leetcodeList.appendChild(leetcodeItem);
             });
+
+            testCompletedQuestions();
         }
         )
         .catch(error => console.error('Error:', error));
