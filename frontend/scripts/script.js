@@ -171,8 +171,10 @@ function renderLeetcodeList() {
                 leetcodeItem.classList.add('list-item');
 
                 // Add the question name
-                const questionName = document.createElement('span');
-                questionName.textContent = question.Title;
+                const questionName = document.createElement('a');
+                questionName.textContent = question["Title"];
+                questionName.href = question["Leetcode Question Link"];
+                questionName.target = '_blank'; // opens the link in a new tab
                 leetcodeItem.appendChild(questionName);
 
                 // Add the checkbox
