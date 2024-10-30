@@ -1,27 +1,27 @@
 const companies = [
-    'Atlassian', 'Morgan Stanley', 'Pinterest', 'Yatra', 'Sumo Logic', 'Google', 'Yandex', 'Bloomreach', 'Clutter', 
-    'Works Applications', 'Grab', 'Alation', 'Leap Motion', 'Point72', 'Infosys', 'Jingchi', 'Twitch', 'Groupon', 
-    'Sapient', 'Capital One', 'Kakao', 'Roblox', 'Rackspace', 'Yahoo', 'Paytm', 'Booking.com', 'Alibaba', 'Poshmark', 
-    'Lyft', 'Jane Street', 'Druva', 'ForUsAll', 'Traveloka', 'Poynt', 'National Instruments', 'GoDaddy', 'Quora', 
-    'Snapchat', 'Qualcomm', 'InMobi', 'Machine Zone', 'Box', 'McKinsey', 'LiveRamp', 'Square', 'DocuSign', 'Barclays', 
-    'Twilio', 'LimeBike', 'Citadel', 'AppDynamics', 'Meta', 'Amazon', 'PayPal', 'Thumbtack', 'Two Sigma', 'IIT Bombay', 
-    'Baidu', 'eBay', 'Intuit', 'GE Digital', 'Cloudera', 'Epic Systems', 'Citrix', 'Aetion', 'Bloomberg', 'Walmart', 
-    'Arista Networks', 'Apple', 'Netflix', 'Pramp', 'Coupang', 'Valve', 'Coursera', 'TandemG', 'Akuna Capital', 
-    'MathWorks', 'Triplebyte', 'Uber', 'Symantec', 'Flipkart', 'Blizzard', 'Reddit', 'United Health Group', 'Akuna', 
-    'Intel', 'NetEase', 'IXL', 'Splunk', 'Twitter', 'ServiceNow', 'Riot Games', 'Flexport', 'Meituan', 'LinkedIn', 
-    'Nutanix', 'Dataminr', 'C3.ai', 'Pocket Gems', 'Wayfair', 'EMC', 'Tencent', 'Quantcast', 'Huawei', 'Redfin', 
-    'Airtel', 'Visa', 'Turvo', 'Oracle', 'Qualtrics', 'IBM', 'Honey', 'MAQ Software', 'BlackRock', 'Indeed', 
-    'Radius', 'ByteDance Toutiao', 'Dell', 'HRT', 'Garena', 'FactSet', 'Fallible', 'Akamai', 'Zoho', 'Cruise Automation', 
-    'Zulily', 'Palantir', 'Accolite', 'Snapdeal', 'Rubrik', 'Expedia', 'TripAdvisor', 'PhonePe', 'Electronic Arts', 
-    'Medianet', 'DoorDash', 'Opendoor', 'Gilt Groupe', 'Pure Storage', 'Virtu', 'Pony.ai', 'Arista', 'Dropbox', 
-    'Tesla', 'Microsoft', 'Adobe', 'Yelp', 'Samsung', 'Airbnb', 'Drawbridge', 'Fidessa', 'Delivery Hero', 'Zillow', 
-    'Robinhood', 'HBO', 'VMware', 'NVIDIA', 'Postmates', 'Jump Trading', 'NetSuite', 'Zappos', 'Deutsche Bank', 
-    'American Express', 'Booking', 'Salesforce', 'Asana', 'C3.ai', 'Zenefits', 'Helix', 'Houzz', 'UiPath', 'Affinity', 
+    'Atlassian', 'Morgan Stanley', 'Pinterest', 'Yatra', 'Sumo Logic', 'Google', 'Yandex', 'Bloomreach', 'Clutter',
+    'Works Applications', 'Grab', 'Alation', 'Leap Motion', 'Point72', 'Infosys', 'Jingchi', 'Twitch', 'Groupon',
+    'Sapient', 'Capital One', 'Kakao', 'Roblox', 'Rackspace', 'Yahoo', 'Paytm', 'Booking.com', 'Alibaba', 'Poshmark',
+    'Lyft', 'Jane Street', 'Druva', 'ForUsAll', 'Traveloka', 'Poynt', 'National Instruments', 'GoDaddy', 'Quora',
+    'Snapchat', 'Qualcomm', 'InMobi', 'Machine Zone', 'Box', 'McKinsey', 'LiveRamp', 'Square', 'DocuSign', 'Barclays',
+    'Twilio', 'LimeBike', 'Citadel', 'AppDynamics', 'Meta', 'Amazon', 'PayPal', 'Thumbtack', 'Two Sigma', 'IIT Bombay',
+    'Baidu', 'eBay', 'Intuit', 'GE Digital', 'Cloudera', 'Epic Systems', 'Citrix', 'Aetion', 'Bloomberg', 'Walmart',
+    'Arista Networks', 'Apple', 'Netflix', 'Pramp', 'Coupang', 'Valve', 'Coursera', 'TandemG', 'Akuna Capital',
+    'MathWorks', 'Triplebyte', 'Uber', 'Symantec', 'Flipkart', 'Blizzard', 'Reddit', 'United Health Group', 'Akuna',
+    'Intel', 'NetEase', 'IXL', 'Splunk', 'Twitter', 'ServiceNow', 'Riot Games', 'Flexport', 'Meituan', 'LinkedIn',
+    'Nutanix', 'Dataminr', 'C3.ai', 'Pocket Gems', 'Wayfair', 'EMC', 'Tencent', 'Quantcast', 'Huawei', 'Redfin',
+    'Airtel', 'Visa', 'Turvo', 'Oracle', 'Qualtrics', 'IBM', 'Honey', 'MAQ Software', 'BlackRock', 'Indeed',
+    'Radius', 'ByteDance Toutiao', 'Dell', 'HRT', 'Garena', 'FactSet', 'Fallible', 'Akamai', 'Zoho', 'Cruise Automation',
+    'Zulily', 'Palantir', 'Accolite', 'Snapdeal', 'Rubrik', 'Expedia', 'TripAdvisor', 'PhonePe', 'Electronic Arts',
+    'Medianet', 'DoorDash', 'Opendoor', 'Gilt Groupe', 'Pure Storage', 'Virtu', 'Pony.ai', 'Arista', 'Dropbox',
+    'Tesla', 'Microsoft', 'Adobe', 'Yelp', 'Samsung', 'Airbnb', 'Drawbridge', 'Fidessa', 'Delivery Hero', 'Zillow',
+    'Robinhood', 'HBO', 'VMware', 'NVIDIA', 'Postmates', 'Jump Trading', 'NetSuite', 'Zappos', 'Deutsche Bank',
+    'American Express', 'Booking', 'Salesforce', 'Asana', 'C3.ai', 'Zenefits', 'Helix', 'Houzz', 'UiPath', 'Affinity',
     'Palantir Technologies', 'Spotify', 'Didi', 'Cisco', 'Affirm', 'Wish', 'Zalando', 'MicroStrategy', 'Zscaler',
-    'JPMorgan', 'Hotstar', 'ByteDance', 'DE Shaw', 'Goldman Sachs', 'Audible', 'SAP', 'F5 Networks', 
+    'JPMorgan', 'Hotstar', 'ByteDance', 'DE Shaw', 'Goldman Sachs', 'Audible', 'SAP', 'F5 Networks',
     'Quip', 'Karat', 'Databricks', 'Tableau', 'Hulu', 'Cohesity', 'GSN Games', 'CodeNation'
-  ];
-  
+];
+
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
@@ -185,7 +185,7 @@ function renderLeetcodeList() {
                     checkbox.checked = true;
                     completedQuestionCount += 1;
                 }
-                
+
                 checkbox.addEventListener('change', () => {
                     if (checkbox.checked) {
                         checkQuestion(question.Title);

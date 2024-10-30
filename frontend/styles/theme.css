@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: rgb(233, 233, 233);
+  background-color: #f9f9f9;
 }
 
 h1 {
@@ -9,6 +9,17 @@ h1 {
 
 h2 {
   text-align: center;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #2ecc71;
+  text-decoration: underline;
 }
 
 input[type="text"] {
@@ -26,15 +37,15 @@ button {
   width: 200px;
   border-style: none;
   border-radius: 7px;
-  background-color: lightblue;
+  background-color: #c5d5e4;
   padding: 5px 10px 5px 10px;
   box-shadow: 0px 3px 3px gray;
 }
 
 button:hover {
-  background-color: rgb(173, 193, 230);
+  background-color: #bdcddc;
 }
 
 button:active {
-  background-color: rgb(173, 180, 230);
+  background-color: #a4b2bf;
 }
