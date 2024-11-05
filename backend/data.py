@@ -178,7 +178,8 @@ def get_questions():
     return jsonify({"questions": get_completed_questions(username)}), 200
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 # need a way to cross the companies off for a user once they've checked off all the questions for a company
