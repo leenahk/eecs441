@@ -1,7 +1,7 @@
 function submitUsername() {
     const name = document.getElementById("usernameInput").value;
     console.log(name);
-    fetch('http://localhost:5000/register', {
+    fetch('https://jobquest-s251.onrender.com/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

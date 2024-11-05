@@ -82,7 +82,7 @@ function renderCompanyList() {
 function checkQuestion(question) {
     completedQuestions.add(question);
     let username = getUsername();
-    fetch('http://localhost:5000/complete-question', {
+    fetch('https://jobquest-s251.onrender.com/complete-question', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ function checkQuestion(question) {
 function uncheckQuestion(question) {
     completedQuestions.delete(question);
     let username = getUsername();
-    fetch('http://localhost:5000/remove-question', {
+    fetch('https://jobquest-s251.onrender.com/remove-question', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ function testCompletedQuestions() {
 function renderLeetcodeList() {
     const user = sessionStorage.getItem("username");
     let leetcodeQuestions = [];
-    fetch('http://localhost:5000/common-questions', {
+    fetch('https://jobquest-s251.onrender.com/common-questions', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -209,7 +209,7 @@ function removeCompany(company) {
     myCompanies.delete(company);
     console.log("removeCompany(): myCompanies", myCompanies);
     const user = sessionStorage.getItem("username");
-    fetch('http://localhost:5000/update-companies', {
+    fetch('https://jobquest-s251.onrender.com/update-companies', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -235,7 +235,7 @@ function updateMyCompanies() {
     if (companySelected) {
         const user = sessionStorage.getItem("username");
         myCompanies.add(input);
-        fetch('http://localhost:5000/update-companies', {
+        fetch('https://jobquest-s251.onrender.com/update-companies', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -306,7 +306,7 @@ function renderTitle() {
 renderTitle();
 
 // Initialize my completed questions
-fetch('http://localhost:5000/get-questions', {
+fetch('https://jobquest-s251.onrender.com/get-questions', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -326,7 +326,7 @@ fetch('http://localhost:5000/get-questions', {
     .catch(error => console.error('Error:', error));
 
 // Initialize my companies
-fetch('http://localhost:5000/get-companies', {
+fetch('https://jobquest-s251.onrender.com/get-companies', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
