@@ -20,6 +20,41 @@ body {
   width: 25vw;
 }
 
+.company-pane-title {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  font-size: 50px;
+  color: #ffffff;
+}
+
+.company-list {
+  flex-grow: 1;
+  border: 1px black;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: start;
+
+  overflow-y: auto;
+  scrollbar-color: #4f378a #65558f;
+}
+
+.company-list > div {
+  border-radius: 40px;
+  background-color: #4f378a;
+  padding: 10px 25px;
+  margin: 20px 10px;
+  color: #ffffff;
+
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+}
+
 .question-pane {
   width: 75vw;
 }
@@ -125,7 +160,6 @@ body {
   right: 10%;
   background-color: #e8def8;
   border: 1px solid #ccc;
-  border-radius: 10px;
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;

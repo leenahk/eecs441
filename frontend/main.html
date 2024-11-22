@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>JobQuest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Inter:opsz@14..32&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <link rel="stylesheet" href="styles/theme.css" />
     <link rel="stylesheet" href="styles/main.css" />
+    <title>tb1c</title>
   </head>
   <body>
     <div class="question-pane">
@@ -23,6 +29,16 @@
       </div> -->
     </div>
     <div class="company-pane">
+      <div class="company-pane-title anonymous-pro-regular">My Companies</div>
+      <div class="company-list" id="companyList">
+        <!-- <div>Google</div>
+        <div>Morgan Stanley</div>
+        <div>IBM</div>
+        <div>Amazon</div>
+        <div>Netflix</div>
+        <div>Apple</div>
+        <div>Microsoft</div> -->
+      </div>
       <div class="search-container">
         <input
           type="text"
@@ -43,16 +59,6 @@
         </button>
       </div>
     </div>
-
-    <!-- <h1 id="title">JobQuest</h1>
-    
-    <div class="info-container">
-      <div class="item-list">
-        <h2>My Companies</h2>
-        <div id="companyList" class="scroll-list"></div>
-      </div>
-      
-    </div> -->
     <script src="scripts/main.js"></script>
   </body>
 </html>

@@ -47,34 +47,33 @@ function renderCompanyList() {
     myCompanies.forEach((company) => {
         // Create a container for each company
         const companyItem = document.createElement('div');
-        companyItem.classList.add('company-item');
-        companyItem.classList.add('list-item');
 
         // Add the company name
         const companyName = document.createElement('span');
         let totalQuestions = companyProgressData[company]["total-questions"];
         let remainingQuestions = companyProgressData[company]["remaining-questions"]
-        companyName.textContent = company +
-            ` (${totalQuestions - remainingQuestions} of 
-            ${totalQuestions})`;
+        companyName.textContent = company;
+        // companyName.textContent = company +
+        //     ` (${totalQuestions - remainingQuestions} of 
+        //     ${totalQuestions})`;
         companyItem.appendChild(companyName);
 
 
-        // Show company is completed
-        if (companyProgressData[company]["remaining-questions"] == 0) {
-            companyItem.classList.add('completed');
-            const completedText = document.createElement('span');
-            completedText.textContent = 'Completed!';
-            completedText.classList.add('completed-text');
-            companyItem.appendChild(completedText);
-        }
+        // // Show company is completed
+        // if (companyProgressData[company]["remaining-questions"] == 0) {
+        //     companyItem.classList.add('completed');
+        //     const completedText = document.createElement('span');
+        //     completedText.textContent = 'Completed!';
+        //     completedText.classList.add('completed-text');
+        //     companyItem.appendChild(completedText);
+        // }
 
-        // Add the trash icon
-        const trashIcon = document.createElement('span');
-        trashIcon.innerHTML = '🗑️';  // Using a trash emoji for the icon
-        trashIcon.classList.add('trash-icon');
-        trashIcon.addEventListener('click', () => removeCompany(company));
-        companyItem.appendChild(trashIcon);
+        // // Add the trash icon
+        // const trashIcon = document.createElement('span');
+        // trashIcon.innerHTML = '🗑️';  // Using a trash emoji for the icon
+        // trashIcon.classList.add('trash-icon');
+        // trashIcon.addEventListener('click', () => removeCompany(company));
+        // companyItem.appendChild(trashIcon);
 
         // Append the company block to the list
         companyList.appendChild(companyItem);
@@ -305,27 +304,27 @@ function renderTitle() {
 
 
 // Initializing the page
-renderTitle();
+// renderTitle();
 
 // Initialize my completed questions
-fetch(`${backendAPI}/get-questions`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username: getUsername() }),
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        console.log("/get-questions", data);
-        data.questions.forEach((d) => completedQuestions.add(d));
-    })
-    .catch(error => console.error('Error:', error));
+// fetch(`${backendAPI}/get-questions`, {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ username: getUsername() }),
+// })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! Status: ${response.status}`);
+//         }
+//         return response.json();
+//     })
+//     .then((data) => {
+//         console.log("/get-questions", data);
+//         data.questions.forEach((d) => completedQuestions.add(d));
+//     })
+//     .catch(error => console.error('Error:', error));
 
 // Initialize my companies
 fetch(`${backendAPI}/get-companies`, {
@@ -347,7 +346,7 @@ fetch(`${backendAPI}/get-companies`, {
         for (const key in data["companies"]) {
             myCompanies.add(key);
         }
-        renderLeetcodeList();
+        // renderLeetcodeList();
         renderCompanyList();
     })
     .catch(error => console.error('Error:', error));
