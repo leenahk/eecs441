@@ -1,3 +1,29 @@
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  background-color: #1d1b20;
+}
+
+.company-pane,
+.question-pane {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.company-pane {
+  justify-content: end;
+
+  background-color: #65558f;
+  width: 25vw;
+}
+
+.question-pane {
+  width: 75vw;
+}
+
 .info-container {
   display: flex;
   width: 700px;
@@ -55,27 +81,53 @@
 }
 
 .search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  width: 300px;
-  border: 1px solid gray;
-  border-radius: 7px;
-  background-color: whitesmoke;
-  padding: 50px 100px 40px 100px;
-  box-shadow: 0px 3px 3px gray;
+  margin-bottom: 20px;
+  padding: 50px 80px 30px 80px;
+}
+
+.search-company-input {
+  width: 100%;
+  padding: 15px 15px;
+  font-size: 30px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 0px;
+}
+
+.add-company-button {
+  background-color: #4f378a;
+  color: #ffffff;
+  padding: 10px 70px;
+  font-size: 20px;
+  border-radius: 20px;
+  border: 0px;
+  margin-top: 30px;
+}
+
+.add-company-button:hover {
+  background-color: #463178;
+}
+
+.add-company-button:active {
+  background-color: #37275e;
 }
 
 .dropdown {
   position: absolute;
-  top: 52%;
-  left: 0;
-  right: 0;
-  background-color: white;
+  bottom: 85%;
+  left: 10%;
+  right: 10%;
+  background-color: #e8def8;
   border: 1px solid #ccc;
+  border-radius: 10px;
   z-index: 1000;
-  max-height: 150px;
+  max-height: 300px;
   overflow-y: auto;
   display: none;
 }
@@ -83,6 +135,12 @@
 .dropdown div {
   padding: 10px;
   cursor: pointer;
+
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 25px;
 }
 
 .dropdown div:hover {

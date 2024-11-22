@@ -9,26 +9,8 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <h1 id="title">JobQuest</h1>
-    <div class="search-container">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search..."
-        onclick="filterOptions()"
-        oninput="filterOptions()"
-      />
-      <div id="dropdown" class="dropdown"></div>
-      <button type="button" id="addCompany" onclick="updateMyCompanies()">
-        Add Company
-      </button>
-    </div>
-    <div class="info-container">
-      <div class="item-list">
-        <h2>My Companies</h2>
-        <div id="companyList" class="scroll-list"></div>
-      </div>
-      <div class="item-list">
+    <div class="question-pane">
+      <!-- <div class="item-list">
         <h2>Most Common Questions</h2>
         <div id="leetcodeList" class="leetcode-list scroll-list"></div>
         <button
@@ -38,8 +20,39 @@
         >
           Refresh
         </button>
+      </div> -->
+    </div>
+    <div class="company-pane">
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-company-input"
+          id="searchInput"
+          placeholder="Search..."
+          onclick="filterOptions()"
+          oninput="filterOptions()"
+        />
+        <div id="dropdown" class="dropdown"></div>
+        <button
+          type="button"
+          id="addCompany"
+          class="add-company-button"
+          onclick="updateMyCompanies()"
+        >
+          Add Company
+        </button>
       </div>
     </div>
-    <script src="scripts/script.js"></script>
+
+    <!-- <h1 id="title">JobQuest</h1>
+    
+    <div class="info-container">
+      <div class="item-list">
+        <h2>My Companies</h2>
+        <div id="companyList" class="scroll-list"></div>
+      </div>
+      
+    </div> -->
+    <script src="scripts/main.js"></script>
   </body>
 </html>
