@@ -1,7 +1,10 @@
+// const backendAPI = "https://jobquest-s251.onrender.com";
+const backendAPI = "https://localhost:5000";
+
 function submitUsername() {
     const name = document.getElementById("usernameInput").value;
     console.log(name);
-    fetch('https://jobquest-s251.onrender.com/register', {
+    fetch(`${backendAPI}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

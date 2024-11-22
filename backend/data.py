@@ -89,7 +89,7 @@ def get_common_questions():
         .sort_values(by='Count', ascending=False)
     )
 
-    common_questions_json = common_questions_filtered.head(10).to_json(orient='records')
+    common_questions_json = common_questions_filtered.head(100).to_json(orient='records')
     common_questions_dict = json.loads(common_questions_json)
 
     return jsonify(common_questions_dict), 200

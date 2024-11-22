@@ -22,6 +22,8 @@ const companies = [
     'Quip', 'Karat', 'Databricks', 'Tableau', 'Hulu', 'Cohesity', 'GSN Games', 'CodeNation'
 ];
 
+// const backendAPI = "https://jobquest-s251.onrender.com";
+const backendAPI = "http://localhost:5000";
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
@@ -82,7 +84,7 @@ function renderCompanyList() {
 function checkQuestion(question) {
     completedQuestions.add(question);
     let username = getUsername();
-    fetch('https://jobquest-s251.onrender.com/complete-question', {
+    fetch(`${backendAPI}/complete-question`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -108,7 +110,7 @@ function checkQuestion(question) {
 function uncheckQuestion(question) {
     completedQuestions.delete(question);
     let username = getUsername();
-    fetch('https://jobquest-s251.onrender.com/remove-question', {
+    fetch(`${backendAPI}/remove-question`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -142,7 +144,7 @@ function testCompletedQuestions() {
 function renderLeetcodeList() {
     const user = sessionStorage.getItem("username");
     let leetcodeQuestions = [];
-    fetch('https://jobquest-s251.onrender.com/common-questions', {
+    fetch(`${backendAPI}/common-questions`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -209,7 +211,7 @@ function removeCompany(company) {
     myCompanies.delete(company);
     console.log("removeCompany(): myCompanies", myCompanies);
     const user = sessionStorage.getItem("username");
-    fetch('https://jobquest-s251.onrender.com/update-companies', {
+    fetch(`${backendAPI}/update-companies`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -235,7 +237,7 @@ function updateMyCompanies() {
     if (companySelected) {
         const user = sessionStorage.getItem("username");
         myCompanies.add(input);
-        fetch('https://jobquest-s251.onrender.com/update-companies', {
+        fetch(`${backendAPI}/update-companies`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -306,7 +308,7 @@ function renderTitle() {
 renderTitle();
 
 // Initialize my completed questions
-fetch('https://jobquest-s251.onrender.com/get-questions', {
+fetch(`${backendAPI}/get-questions`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -326,7 +328,7 @@ fetch('https://jobquest-s251.onrender.com/get-questions', {
     .catch(error => console.error('Error:', error));
 
 // Initialize my companies
-fetch('https://jobquest-s251.onrender.com/get-companies', {
+fetch(`${backendAPI}/get-companies`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
