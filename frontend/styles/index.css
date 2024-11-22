@@ -36,3 +36,42 @@ body {
   margin-top: 50px;
   color: #FFFFFF;
 }
+
+.login-container {
+  width: 300px;
+  padding: 60px 50px 40px 50px;
+  background-color: #E8DEF8;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-username-input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 25px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 0px;
+}
+
+.login-submit-button {
+  background-color: #7D5260;
+  color: #FFFFFF;
+  padding: 5px 70px;
+  font-size: 20px;
+  border-radius: 20px;
+  border: 0px;
+  margin-top: 40px;
+}
+
+.login-submit-button:hover {
+  background-color: #68444f;
+}
+
+.login-submit-button:active {
+  background-color: #5f404a;
+}
