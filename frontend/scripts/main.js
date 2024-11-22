@@ -307,24 +307,24 @@ function renderTitle() {
 // renderTitle();
 
 // Initialize my completed questions
-// fetch(`${backendAPI}/get-questions`, {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ username: getUsername() }),
-// })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error(`HTTP error! Status: ${response.status}`);
-//         }
-//         return response.json();
-//     })
-//     .then((data) => {
-//         console.log("/get-questions", data);
-//         data.questions.forEach((d) => completedQuestions.add(d));
-//     })
-//     .catch(error => console.error('Error:', error));
+fetch(`${backendAPI}/get-questions`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username: getUsername() }),
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then((data) => {
+        console.log("/get-questions", data);
+        data.questions.forEach((d) => completedQuestions.add(d));
+    })
+    .catch(error => console.error('Error:', error));
 
 // Initialize my companies
 fetch(`${backendAPI}/get-companies`, {
@@ -346,7 +346,7 @@ fetch(`${backendAPI}/get-companies`, {
         for (const key in data["companies"]) {
             myCompanies.add(key);
         }
-        // renderLeetcodeList();
+        renderLeetcodeList();
         renderCompanyList();
     })
     .catch(error => console.error('Error:', error));

@@ -10,10 +10,10 @@ body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .company-pane {
+  align-items: center;
   justify-content: end;
 
   background-color: #65558f;
@@ -29,7 +29,6 @@ body {
 
 .company-list {
   flex-grow: 1;
-  border: 1px black;
 
   display: flex;
   flex-direction: row;
@@ -59,25 +58,18 @@ body {
   width: 75vw;
 }
 
-.info-container {
-  display: flex;
-  width: 700px;
-  gap: 50px;
-  margin: 20px auto 20px auto;
+.question-pane-title {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 40px;
+  color: #ffffff;
 }
 
-.item-list {
+.leetcode-list {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 300px;
-  max-width: 400px;
-  margin: 20px auto 20px auto;
-}
-
-.scroll-list {
-  max-height: 350px;
-  overflow-y: auto;
+  justify-content: center;
 }
 
 .list-item {
