@@ -129,6 +129,7 @@ body {
   z-index: 1000;
   max-height: 300px;
   overflow-y: auto;
+  scrollbar-color: #7d5260 #e8def8;
   display: none;
 }
 
