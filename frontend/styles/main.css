@@ -21,9 +21,9 @@ body {
 }
 
 .company-pane-title {
-  margin-top: 100px;
-  margin-bottom: 100px;
-  font-size: 50px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 40px;
   color: #ffffff;
 }
 
@@ -45,14 +45,14 @@ body {
   border-radius: 40px;
   background-color: #4f378a;
   padding: 10px 25px;
-  margin: 20px 10px;
+  margin: 10px 5px;
   color: #ffffff;
 
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .question-pane {
@@ -123,13 +123,13 @@ body {
 
   position: relative;
   margin-bottom: 20px;
-  padding: 50px 80px 30px 80px;
+  padding: 25px 25px 25px 25px;
 }
 
 .search-company-input {
   width: 100%;
   padding: 15px 15px;
-  font-size: 30px;
+  font-size: 20px;
   box-sizing: border-box;
   border-radius: 20px;
   border: 0px;
@@ -139,10 +139,10 @@ body {
   background-color: #4f378a;
   color: #ffffff;
   padding: 10px 70px;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 20px;
   border: 0px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .add-company-button:hover {
@@ -155,7 +155,7 @@ body {
 
 .dropdown {
   position: absolute;
-  bottom: 85%;
+  bottom: 90%;
   left: 10%;
   right: 10%;
   background-color: #e8def8;
@@ -175,7 +175,7 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-size: 25px;
+  font-size: 15px;
 }
 
 .dropdown div:hover {
