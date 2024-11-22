@@ -28,6 +28,11 @@ body {
   color: #FFFFFF;
 }
 
+.logo {
+  width: 400px;
+  height: 400px;
+}
+
 .one-liner {
   width: 500px;
   font-size: 24px;
@@ -39,7 +44,8 @@ body {
 
 .login-container {
   width: 300px;
-  padding: 60px 50px 40px 50px;
+  padding: 40px 40px 20px 40px;
+  margin-top: 20px;
   background-color: #E8DEF8;
   border-radius: 20px;
 
@@ -52,7 +58,7 @@ body {
 .login-username-input {
   width: 100%;
   padding: 10px 15px;
-  font-size: 25px;
+  font-size: 20px;
   box-sizing: border-box;
   border-radius: 10px;
   border: 0px;
@@ -62,10 +68,10 @@ body {
   background-color: #7D5260;
   color: #FFFFFF;
   padding: 5px 70px;
-  font-size: 20px;
+  font-size: 15px;
   border-radius: 20px;
   border: 0px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .login-submit-button:hover {
