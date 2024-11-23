@@ -46,27 +46,20 @@ function renderCompanyList() {
     companyList.innerHTML = '';
     myCompanies.forEach((company) => {
         // Create a container for each company
-        const companyItem = document.createElement('div');
+        const companyItem = document.createElement('button');
+        companyItem.classList.add('company-item');
 
         // Add the company name
-        const companyName = document.createElement('span');
-        let totalQuestions = companyProgressData[company]["total-questions"];
-        let remainingQuestions = companyProgressData[company]["remaining-questions"]
-        companyName.textContent = company;
-        // companyName.textContent = company +
-        //     ` (${totalQuestions - remainingQuestions} of 
-        //     ${totalQuestions})`;
-        companyItem.appendChild(companyName);
+        companyItem.textContent = company;
+        companyItem.addEventListener('click', () => removeCompany(company));
 
+        // let totalQuestions = companyProgressData[company]["total-questions"];
+        // let remainingQuestions = companyProgressData[company]["remaining-questions"]
 
-        // // Show company is completed
-        // if (companyProgressData[company]["remaining-questions"] == 0) {
-        //     companyItem.classList.add('completed');
-        //     const completedText = document.createElement('span');
-        //     completedText.textContent = 'Completed!';
-        //     completedText.classList.add('completed-text');
-        //     companyItem.appendChild(completedText);
-        // }
+        // Show company is completed
+        if (companyProgressData[company]["remaining-questions"] == 0) {
+            companyItem.classList.add('completed');
+        }
 
         // // Add the trash icon
         // const trashIcon = document.createElement('span');
