@@ -161,15 +161,19 @@ function renderLeetcodeList() {
             leetcodeQuestions.forEach((question) => {
                 // Create a container for each LeetCode question
                 const leetcodeItem = document.createElement('div');
-                leetcodeItem.classList.add('leetcode-item');
-                leetcodeItem.classList.add('list-item');
+                leetcodeItem.classList.add('question');
+
+                // Add the question header
+                const questionHeader = document.createElement('div');
+                questionHeader.classList.add('question-header');
+                leetcodeItem.appendChild(questionHeader);
 
                 // Add the question name
                 const questionName = document.createElement('a');
                 questionName.textContent = question["Title"];
                 questionName.href = question["Leetcode Question Link"];
                 questionName.target = '_blank'; // opens the link in a new tab
-                leetcodeItem.appendChild(questionName);
+                questionHeader.appendChild(questionName);
 
                 // Add the checkbox
                 const checkbox = document.createElement('input');
@@ -187,7 +191,29 @@ function renderLeetcodeList() {
                         uncheckQuestion(question.Title);
                     }
                 });
-                leetcodeItem.appendChild(checkbox);
+                questionHeader.appendChild(checkbox);
+
+                // Add the difficulty
+                const difficulty = document.createElement('div');
+                difficulty.classList.add('question-difficulty');
+                difficulty.textContent = question["Difficulty"];
+                leetcodeItem.appendChild(difficulty);
+
+                // Add the data
+                const questionData = document.createElement('div');
+                questionData.classList.add('question-data');
+
+                const companies = document.createElement('div');
+                companies.classList.add('question-companies');
+                companies.textContent = question["Companies"];
+                questionData.appendChild(companies);
+
+                const speedo = document.createElement('img');
+                speedo.classList.add('question-speedo');
+                speedo.src = 'images/speedoHigh.png';
+                questionData.appendChild(speedo);
+
+                leetcodeItem.appendChild(questionData);
 
                 // Append the question block to the list
                 leetcodeList.appendChild(leetcodeItem);
