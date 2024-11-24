@@ -100,13 +100,13 @@ def get_common_questions():
 
     # Merge the two dataframes to include all required information
     result_df = pd.merge(company_list_df, probabilities_df, on='Title')
-    result_df = pd.merge(result_df, filtered_df[['Title', 'Leetcode Question Link']].drop_duplicates(), on='Title')
+    result_df = pd.merge(result_df, filtered_df[['Title', 'Leetcode Question Link', 'Difficulty']].drop_duplicates(), on='Title')
     answered_df = result_df[result_df['Title'].isin(get_completed_questions(username))]
     unanswered_df = result_df[~result_df['Title'].isin(get_completed_questions(username))]
 
     # Calculate preparadeness
     preparedness_score = answered_df['Probability'].sum()
-    unanswered_df = unanswered_df.sort_values(by='Probability', ascending=False).head(9)
+    unanswered_df = unanswered_df.sort_values(by='Probability', ascending=False).head(12)
     potential_preparedness_score = unanswered_df['Probability'].sum() + preparedness_score
 
     questions_dict = json.loads(unanswered_df.to_json(orient='records'))
