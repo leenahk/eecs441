@@ -36,31 +36,3 @@ h1 {
 h2 {
   text-align: center;
 }
-
-/* input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  box-sizing: border-box;
-} */
-
-/* button {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  width: 200px;
-  border-style: none;
-  border-radius: 7px;
-  background-color: lightblue;
-  padding: 5px 10px 5px 10px;
-  box-shadow: 0px 3px 3px gray;
-} */
-
-button:hover {
-  background-color: rgb(173, 193, 230);
-}
-
-button:active {
-  background-color: rgb(173, 180, 230);
-}

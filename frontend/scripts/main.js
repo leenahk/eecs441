@@ -191,22 +191,39 @@ function renderLeetcodeList() {
                         uncheckQuestion(question.Title);
                     }
                 });
-                questionHeader.appendChild(checkbox);
+                leetcodeItem.appendChild(checkbox);
 
                 // Add the difficulty
                 const difficulty = document.createElement('div');
                 difficulty.classList.add('question-difficulty');
                 difficulty.textContent = question["Difficulty"];
+                if (question["Difficulty"] == "Easy") {
+                    difficulty.style.color = "#048147";
+                } else if (question["Difficulty"] == "Medium") {
+                    difficulty.style.color = "#B88700";
+                } else {
+                    difficulty.style.color = "#B3261E";
+                }
                 leetcodeItem.appendChild(difficulty);
 
                 // Add the data
                 const questionData = document.createElement('div');
                 questionData.classList.add('question-data');
 
+                const companiesWrapper = document.createElement('div');
+                companiesWrapper.classList.add('question-companies-wrapper');
+                questionData.appendChild(companiesWrapper);
+
+                const companyDataHeader = document.createElement('h3');
+                companyDataHeader.innerHTML += `<div>${question["Count"]} companies</div>`;
+                companiesWrapper.appendChild(companyDataHeader);
+
                 const companies = document.createElement('div');
                 companies.classList.add('question-companies');
-                companies.textContent = question["Companies"];
-                questionData.appendChild(companies);
+                question["Companies"].forEach((c) => {
+                    companies.innerHTML += `<div>${c}</div>`;
+                });
+                companiesWrapper.appendChild(companies);
 
                 const speedo = document.createElement('img');
                 speedo.classList.add('question-speedo');
