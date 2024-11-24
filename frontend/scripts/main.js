@@ -61,13 +61,6 @@ function renderCompanyList() {
             companyItem.classList.add('completed');
         }
 
-        // // Add the trash icon
-        // const trashIcon = document.createElement('span');
-        // trashIcon.innerHTML = '🗑️';  // Using a trash emoji for the icon
-        // trashIcon.classList.add('trash-icon');
-        // trashIcon.addEventListener('click', () => removeCompany(company));
-        // companyItem.appendChild(trashIcon);
-
         // Append the company block to the list
         companyList.appendChild(companyItem);
     });
@@ -158,7 +151,7 @@ function renderLeetcodeList() {
             completedQuestionCount = 0;
             totalQuestionCount = data.length;
 
-            leetcodeQuestions.forEach((question) => {
+            leetcodeQuestions.forEach((question, idx) => {
                 // Create a container for each LeetCode question
                 const leetcodeItem = document.createElement('div');
                 leetcodeItem.classList.add('question');
@@ -170,7 +163,7 @@ function renderLeetcodeList() {
 
                 // Add the question name
                 const questionName = document.createElement('a');
-                questionName.textContent = question["Title"];
+                questionName.textContent = idx + ". " + question["Title"];
                 questionName.href = question["Leetcode Question Link"];
                 questionName.target = '_blank'; // opens the link in a new tab
                 questionHeader.appendChild(questionName);
@@ -227,7 +220,14 @@ function renderLeetcodeList() {
 
                 const speedo = document.createElement('img');
                 speedo.classList.add('question-speedo');
-                speedo.src = 'images/speedoHigh.png';
+                let commonRatio = question["Companies"].length / myCompanies.size;
+                if (commonRatio >= 0.5) {
+                    speedo.src = 'images/speedoHigh.png';
+                } else if (commonRatio >= 0.33) {
+                    speedo.src = 'images/speedoMed.png';
+                } else {
+                    speedo.src = 'images/speedoLow.png';
+                }
                 questionData.appendChild(speedo);
 
                 leetcodeItem.appendChild(questionData);
