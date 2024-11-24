@@ -10,6 +10,7 @@ CORS(app)
 user_data_file = 'users.json'
 company_questions_file = 'company_questions.csv'
 company_questions = pd.read_csv(company_questions_file)
+company_questions['Normalized Frequency'] = company_questions.groupby('Company')['Frequency'].transform(lambda x: x / x.sum())
 
 
 if not os.path.exists(user_data_file):
@@ -81,20 +82,42 @@ def get_common_questions():
 
     # filter data based on user's companies
     filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list)]
-    unanswered_df = filtered_df[~filtered_df['Title'].isin(get_completed_questions(username))]
-    common_questions_filtered = (
-        unanswered_df.groupby(['Title', 'Leetcode Question Link', 'Difficulty'])
-        .agg({'Company': lambda x: list(x.unique())})
+
+    # Aggregate list of companies that ask each question
+    company_list_df = (
+        filtered_df.groupby('Title')['Company']
+        .apply(list)  # Aggregate companies into a list
         .reset_index()
-        .rename(columns={'Company': 'Companies'})
     )
-    common_questions_filtered['Count'] = common_questions_filtered['Companies'].apply(len)
-    common_questions_filtered = common_questions_filtered.sort_values(by='Count', ascending=False)
+    company_list_df.columns = ['Title', 'Companies']
 
-    common_questions_json = common_questions_filtered.head(18).to_json(orient='records')
-    common_questions_dict = json.loads(common_questions_json)
+    # Calculate the probability for each question
+    probabilities_df = (
+        filtered_df.groupby('Title')['Normalized Frequency']
+        .sum() / len(company_list)
+    ).reset_index()
+    probabilities_df.columns = ['Title', 'Probability']
 
-    return jsonify(common_questions_dict), 200
+    # Merge the two dataframes to include all required information
+    result_df = pd.merge(company_list_df, probabilities_df, on='Title')
+    result_df = pd.merge(result_df, filtered_df[['Title', 'Leetcode Question Link']].drop_duplicates(), on='Title')
+    answered_df = result_df[result_df['Title'].isin(get_completed_questions(username))]
+    unanswered_df = result_df[~result_df['Title'].isin(get_completed_questions(username))]
+
+    # Calculate preparadeness
+    preparedness_score = answered_df['Probability'].sum()
+    unanswered_df = unanswered_df.sort_values(by='Probability', ascending=False).head(9)
+    potential_preparedness_score = unanswered_df['Probability'].sum() + preparedness_score
+
+    questions_dict = json.loads(unanswered_df.to_json(orient='records'))
+
+    response = {
+        "questions": questions_dict,
+        "preparedness": preparedness_score,
+        "potential": potential_preparedness_score
+    }
+
+    return jsonify(response), 200
 
 @app.route('/complete-question', methods=['POST'])
 def complete_question():

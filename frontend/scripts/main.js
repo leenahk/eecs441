@@ -22,8 +22,8 @@ const companies = [
     'Quip', 'Karat', 'Databricks', 'Tableau', 'Hulu', 'Cohesity', 'GSN Games', 'CodeNation'
 ];
 
-const backendAPI = "https://jobquest-s251.onrender.com";
-// const backendAPI = "http://localhost:5000";
+// const backendAPI = "https://jobquest-s251.onrender.com";
+const backendAPI = "http://localhost:5000";
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
@@ -149,9 +149,9 @@ function renderLeetcodeList() {
             const leetcodeList = document.getElementById("leetcodeList");
             leetcodeList.innerHTML = ''; // Clear the previous list
             completedQuestionCount = 0;
-            totalQuestionCount = data.length;
+            totalQuestionCount = data.questions.length;
 
-            leetcodeQuestions.forEach((question, idx) => {
+            leetcodeQuestions.questions.forEach((question, idx) => {
                 // Create a container for each LeetCode question
                 const leetcodeItem = document.createElement('div');
                 leetcodeItem.classList.add('question');
@@ -208,7 +208,11 @@ function renderLeetcodeList() {
                 questionData.appendChild(companiesWrapper);
 
                 const companyDataHeader = document.createElement('h3');
-                companyDataHeader.innerHTML += `<div>${question["Count"]} companies</div>`;
+                if (question["Companies"].length == 1) {
+                    companyDataHeader.innerHTML += `<div>${question["Companies"].length} company</div>`;
+                } else {
+                    companyDataHeader.innerHTML += `<div>${question["Companies"].length} companies</div>`;
+                }
                 companiesWrapper.appendChild(companyDataHeader);
 
                 const companies = document.createElement('div');
@@ -220,10 +224,10 @@ function renderLeetcodeList() {
 
                 const speedo = document.createElement('img');
                 speedo.classList.add('question-speedo');
-                let commonRatio = question["Companies"].length / myCompanies.size;
-                if (commonRatio >= 0.5) {
+                let probability = question["Probability"];
+                if (probability >= 0.05) {
                     speedo.src = 'images/speedoHigh.png';
-                } else if (commonRatio >= 0.33) {
+                } else if (probability >= 0.01) {
                     speedo.src = 'images/speedoMed.png';
                 } else {
                     speedo.src = 'images/speedoLow.png';
