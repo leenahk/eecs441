@@ -91,9 +91,8 @@ def get_common_questions():
     common_questions_filtered['Count'] = common_questions_filtered['Companies'].apply(len)
     common_questions_filtered = common_questions_filtered.sort_values(by='Count', ascending=False)
 
-    common_questions_json = common_questions_filtered.head(100).to_json(orient='records')
+    common_questions_json = common_questions_filtered.head(18).to_json(orient='records')
     common_questions_dict = json.loads(common_questions_json)
-    print(common_questions_dict)
 
     return jsonify(common_questions_dict), 200
 

@@ -90,6 +90,7 @@ body {
 
 .question-pane {
   width: 75vw;
+  position: relative;
 }
 
 .question-pane-title {
@@ -208,7 +209,27 @@ body {
 }
 
 .refresh-button {
+  position: absolute;
+  bottom: 3%;
+  right: 50%;
+  transform: translate(50%, -50%);
+
   margin-top: 0px;
+  background-color: #7D5260;
+  color: #ffffff;
+  padding: 10px 70px;
+  font-size: 15px;
+  border-radius: 20px;
+  border: 0px;
+  margin-top: 20px;
+}
+
+.refresh-button:hover {
+  background-color: #68444f;
+}
+
+.refresh-button:active {
+  background-color: #5f404a;
 }
 
 .search-container {
