@@ -32,6 +32,8 @@ let completedQuestionCount = 0;
 let totalQuestionCount = 0;
 
 const dropdown = document.getElementById("dropdown");
+const readinessHeader = document.getElementById("readiness");
+const potentialHeader = document.getElementById("potential");
 
 // Logic to tell that a selection has been made
 const searchBar = document.getElementById("searchInput");
@@ -126,6 +128,20 @@ function testCompletedQuestions() {
     leetcodeList.classList.toggle('completed', completedQuestionCount == totalQuestionCount);
 }
 
+function updatePrepProgress(progress, potential, numQuestions) {
+    if (myCompanies.size == 0) {
+        return;
+    }
+
+    readinessHeader.innerHTML = "Interview Readiness: " + (progress * 100).toFixed(2) + "%";
+
+    if (numQuestions == 1) {
+        `Solve ${numQuestions} question to get to ` + (potential * 100).toFixed(2) + "%"
+    } else {
+        potentialHeader.innerHTML = `Solve ${numQuestions} questions to get to ` + (potential * 100).toFixed(2) + "%";
+    }
+}
+
 function renderLeetcodeList() {
     const user = sessionStorage.getItem("username");
     let leetcodeQuestions = [];
@@ -145,6 +161,8 @@ function renderLeetcodeList() {
         .then((data) => {
             leetcodeQuestions = data;
             console.log("/common-questions", data);
+
+            updatePrepProgress(data["preparedness"], data["potential"], data["questions"].length);
 
             const leetcodeList = document.getElementById("leetcodeList");
             leetcodeList.innerHTML = ''; // Clear the previous list
@@ -276,6 +294,10 @@ function removeCompany(company) {
             console.log("/update-companies", data);
             renderCompanyList();
             renderLeetcodeList();
+            if (myCompanies.size == 0) {
+                readinessHeader.innerHTML = "Add Companies to Get Recommended Questions";
+                potentialHeader.innerHTML = "";
+            }
         })
         .catch(error => console.error('Error:', error));
 }

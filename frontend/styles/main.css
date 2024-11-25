@@ -93,10 +93,17 @@ body {
   position: relative;
 }
 
-.question-pane-title {
+.interview-readiness {
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
   font-size: 40px;
+  color: #ffffff;
+}
+
+.interview-potential {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  font-size: 20px;
   color: #ffffff;
 }
 
