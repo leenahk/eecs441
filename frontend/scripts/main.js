@@ -222,17 +222,26 @@ function renderLeetcodeList() {
                 });
                 companiesWrapper.appendChild(companies);
 
-                const speedo = document.createElement('img');
-                speedo.classList.add('question-speedo');
+                const freqIconContainer = document.createElement('div');
+                freqIconContainer.classList.add('freq-icon-container');
+                questionData.appendChild(freqIconContainer);
+
+                const freqIcon = document.createElement('img');
+                freqIcon.classList.add('freq-icon');
                 let probability = question["Probability"];
                 if (probability >= 0.05) {
-                    speedo.src = 'images/speedoHigh.png';
+                    freqIcon.src = 'images/diceHigh.png';
                 } else if (probability >= 0.01) {
-                    speedo.src = 'images/speedoMed.png';
+                    freqIcon.src = 'images/diceMed.png';
                 } else {
-                    speedo.src = 'images/speedoLow.png';
+                    freqIcon.src = 'images/diceLow.png';
                 }
-                questionData.appendChild(speedo);
+                freqIconContainer.appendChild(freqIcon);
+
+                const overlayText = document.createElement('div');
+                overlayText.classList.add('freq-overlay-text');
+                overlayText.textContent = (probability * 100).toFixed(2) + "%";
+                freqIconContainer.appendChild(overlayText);
 
                 leetcodeItem.appendChild(questionData);
 

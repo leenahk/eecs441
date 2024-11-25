@@ -141,7 +141,7 @@ body {
 }
 
 .question-header > a:hover {
-  color: #65558f;;
+  color: #65558f;
 }
 
 .leetcode-checkbox {
@@ -197,10 +197,44 @@ body {
   color: #ffffff;
 }
 
-.question-speedo {
+.freq-icon-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.freq-icon {
   width: 50px;
   height: 50px;
   margin: 10px;
+  transition: filter 0.3s ease;
+}
+
+.freq-overlay-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: white;
+  background-color: rgba(125, 82, 96, 0.9);
+  width: 55px;
+  height: 55px;
+  padding: 5px;
+  border-radius: 55px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.freq-icon-container:hover .freq-icon {
+  filter: grayscale(100%); /* Gray out the image on hover */
+}
+
+.freq-icon-container:hover .freq-overlay-text {
+  opacity: 1; /* Show text on hover */
 }
 
 .leetcode-list.completed {
@@ -215,7 +249,7 @@ body {
   transform: translate(50%, -50%);
 
   margin-top: 0px;
-  background-color: #7D5260;
+  background-color: #7d5260;
   color: #ffffff;
   padding: 10px 70px;
   font-size: 15px;
