@@ -19,14 +19,20 @@
     <div class="question-pane">
       <h1 id="readiness" class="interview-readiness anonymous-pro-bold">Add Companies to Get Recommended Questions</h1>
       <h2 id="potential" class="interview-potential anonymous-pro-regular"></h2>
-        <div id="leetcodeList" class="leetcode-list"></div>
-        <button
-          class="refresh-button hidden"
-          id="refreshButton"
-          onclick="renderLeetcodeList()"
-        >
-          Refresh
+      <div class="sub-header">
+        <button class="history-button inter-regular" onclick="window.location.href='history.html'">
+          <img src="images/history.png" width="20px"/>
+          <span>History</span>
         </button>
+      </div>
+      <div id="leetcodeList" class="leetcode-list"></div>
+      <button
+        class="refresh-button hidden"
+        id="refreshButton"
+        onclick="renderLeetcodeList()"
+      >
+        Refresh
+      </button>
     </div>
     <div class="company-pane">
       <h1 class="company-pane-title anonymous-pro-regular">My Companies</h1>

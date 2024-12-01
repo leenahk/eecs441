@@ -88,6 +88,7 @@ body {
   background-color: #9b211a;
 }
 
+
 .question-pane {
   width: 75vw;
   position: relative;
@@ -107,13 +108,48 @@ body {
   color: #ffffff;
 }
 
+.sub-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: 90%;
+  margin: 0px auto;
+}
+
+
+.history-button  {
+  font-size: 15px;
+  border: 0px;
+  border-radius: 40px;
+  background-color: #7d5260;
+  padding: 10px 10px;
+  width: fit-content;
+  height: fit-content;
+  margin: 5px 15px;
+  color: #ffffff;
+
+  display: flex;
+}
+
+.history-button:hover {
+  background-color: #68444f;
+}
+
+.history-button:active {
+  background-color: #5f404a;
+}
+
+.history-button > span {
+  margin-left: 5px;
+}
+
 .leetcode-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   overflow-y: auto;
   scrollbar-color: #7d5260 #1d1b20;
   width: 90%;
-  margin: 20px auto;
+  margin: 0px auto;
 }
 
 .leetcode-list.completed {
