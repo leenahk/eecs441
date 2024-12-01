@@ -166,6 +166,22 @@ def remove_question():
     return jsonify({"message": f"Question marked as incomplete for user '{username}'.", "companies": users[username]['companies']}), 200
 
 
+@app.route('/completed-questions', methods=['POST'])
+def completed_questions():
+    data = request.json
+    username = data.get('username').strip().lower()
+
+    if not login_user(username):
+        return jsonify({"message": "User not found. Please log in first."}), 404
+
+    completed_questions = get_completed_questions(username)
+    completed_questions_df = company_questions[company_questions['Title'].isin(completed_questions)]
+    completed_questions_df = completed_questions_df[['Title', 'Leetcode Question Link', 'Difficulty']].drop_duplicates()
+    completed_questions_json = completed_questions_df.to_json(orient='records')
+    completed_questions_dict = json.loads(completed_questions_json)
+    return jsonify({"message": f"Completed questions for '{username}'.", "questions": completed_questions_dict}), 200
+
+
 @app.route('/update-companies', methods=['POST'])
 def update_companies():
     data = request.json
@@ -206,43 +222,3 @@ def get_questions():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-
-
-# need a way to cross the companies off for a user once they've checked off all the questions for a company
-
-'''
-Track user progress: Add a progress section to the users.json file that tracks answered questions per company.
-Answering a question: Add a new route to mark a question as answered for a specific company.
-Check completion: Add logic to check whether all questions for a company are answered and cross off the company once complete.
-
-
-/get-finished-companies -> returns list of finished companies
-/get-common-questions -> stays
-/answer-question -> what runs when checkbox is checked
-/unanswer-question -> uncheck checkbox
-
-
-{
-    "user1": {
-        "companies" : {
-            "microsoft" : {
-                "total-questions": 10,
-                "remaining-questions": 5,
-            },
-            "google": {
-            }
-        },
-        "completed-questions": []
-    }
-}
-
-companies-to-questions = {
-    "microsoft" : {
-        "questions": []
-    },
-    "google": {
-        "questions": []
-    }
-}
-
-'''

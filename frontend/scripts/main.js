@@ -22,8 +22,8 @@ const companies = [
     'Quip', 'Karat', 'Databricks', 'Tableau', 'Hulu', 'Cohesity', 'GSN Games', 'CodeNation'
 ];
 
-const backendAPI = "https://jobquest-s251.onrender.com";
-// const backendAPI = "http://localhost:5000";
+// const backendAPI = "https://jobquest-s251.onrender.com";
+const backendAPI = "http://localhost:5000";
 
 const myCompanies = new Set();
 const completedQuestions = new Set();
