@@ -133,7 +133,7 @@ function updatePrepProgress(progress, potential, numQuestions) {
         return;
     }
 
-    readinessHeader.innerHTML = "Interview Readiness: " + (progress * 100).toFixed(2) + "%";
+    readinessHeader.innerHTML = "Estimated Interview Readiness: " + (progress * 100).toFixed(2) + "%";
 
     if (numQuestions == 1) {
         `Solve ${numQuestions} question to get to ` + (potential * 100).toFixed(2) + "%"
