@@ -52,7 +52,30 @@ def register_user(username, company_list):
             json.dump(users, file, indent=4)
         return True
 
+def calculate_dataframe(company_list):
+    # filter data based on user's companies
+    filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list)]
 
+    # Aggregate list of companies that ask each question
+    company_list_df = (
+        filtered_df.groupby('Title')['Company']
+        .apply(list)  # Aggregate companies into a list
+        .reset_index()
+    )
+    company_list_df.columns = ['Title', 'Companies']
+
+    # Calculate the probability for each question
+    probabilities_df = (
+        filtered_df.groupby('Title')['Normalized Frequency']
+        .sum() / len(company_list)
+    ).reset_index()
+    probabilities_df.columns = ['Title', 'Probability']
+
+    # Merge the two dataframes to include all required information
+    result_df = pd.merge(company_list_df, probabilities_df, on='Title')
+    result_df = pd.merge(result_df, filtered_df[['Title', 'Leetcode Question Link', 'Difficulty']].drop_duplicates(), on='Title')
+
+    return result_df
 
 def login_user(username):
     return username_exists(username)
@@ -78,29 +101,7 @@ def get_common_questions():
     if not login_user(username):
         return jsonify({"message": "User not found. Please log in first."}), 404
 
-    company_list = get_user_companies(username)
-
-    # filter data based on user's companies
-    filtered_df = company_questions[company_questions['Company'].str.lower().isin(company_list)]
-
-    # Aggregate list of companies that ask each question
-    company_list_df = (
-        filtered_df.groupby('Title')['Company']
-        .apply(list)  # Aggregate companies into a list
-        .reset_index()
-    )
-    company_list_df.columns = ['Title', 'Companies']
-
-    # Calculate the probability for each question
-    probabilities_df = (
-        filtered_df.groupby('Title')['Normalized Frequency']
-        .sum() / len(company_list)
-    ).reset_index()
-    probabilities_df.columns = ['Title', 'Probability']
-
-    # Merge the two dataframes to include all required information
-    result_df = pd.merge(company_list_df, probabilities_df, on='Title')
-    result_df = pd.merge(result_df, filtered_df[['Title', 'Leetcode Question Link', 'Difficulty']].drop_duplicates(), on='Title')
+    result_df = calculate_dataframe(get_user_companies(username))
     answered_df = result_df[result_df['Title'].isin(get_completed_questions(username))]
     unanswered_df = result_df[~result_df['Title'].isin(get_completed_questions(username))]
 
