@@ -1,5 +1,5 @@
-// const backendAPI = "https://jobquest-s251.onrender.com";
-const backendAPI = "http://localhost:5000";
+const backendAPI = "https://jobquest-s251.onrender.com";
+// const backendAPI = "http://localhost:5000";
 
 function submitUsername() {
     const name = document.getElementById("usernameInput").value;
